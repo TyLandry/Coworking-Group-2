@@ -5,20 +5,6 @@ Wireframes created on Figma:
 [Figma](https://www.figma.com/design/qzqipjJdeGB8L45dBNT9ON/CoWorking-Project?node-id=12-374&t=DGISsyvl8jPZR1rg-1)
 
 
-Repository of CoWorking Datase
-
-
-## 📔 Documents
-
-| Machine Language | Program |
-| ------- | ------------ |
-| MySQL | CoWorking Group Project | 
-
-
-
-## CoWorking Database Group Project
-
-
 ## Learning Objectives
 •	Design a database according to the requirements of a chosen case study.
 •	Implement complex SQL queries to retrieve information from multiple tables.
@@ -48,14 +34,4 @@ The Minimum Viable Product (MVP) is the smallest conceivable list of features th
 
 8.	As a coworker, I can get the contact information of a workspace owner (name, phone, and email).
 
-## Instructor's Feedback: 
-The first part of the project was to improve and normalize the table where user would be able ot search for the address, type of rental, Lease, in an efficient way for the queries. Therefore, FK tables were created to support the  PK tables and columns were added to support a different way of adding and searching for the address.
-
-
-Vs code Studio
-SQL Server Management Studio
-
-
-## License
-Distributed under the MIT License. See LICENSE for more information.
 
