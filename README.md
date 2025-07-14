@@ -8,9 +8,6 @@ Wireframes created on Figma:
 Repository of CoWorking Datase
 
 
-
-## 📑 Document
-- [Document Github](https://github.com/LizzyTrevisan/Co-working-Database-Project.git)
 ## 📔 Documents
 
 | Machine Language | Program |
