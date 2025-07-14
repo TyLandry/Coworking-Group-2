@@ -29,6 +29,7 @@ Repository of CoWorking Datase
 Case Study
 Coworking is a work style where different individuals or teams share a working environment. If you are self-employed or a working-from-home professional, you would love to have the option to rent a meeting room, or a desk in an office equipped with high-speed internet, printers, copiers, stationaries, and office kitchen. As there is an increase in the number of coworkers and the number of sharable workspaces, we are looking to develop an application to connect both parties. The objective is very similar to how Uber connects riders with drivers and Airbnb connects tenants with landlords.
 The Minimum Viable Product (MVP) is the smallest conceivable list of features that fulfill the primary business goal of a software product. One way to summarize a feature is by a “user story” – a short sentence describing the feature from the perspective of the user. User stories frequently take the following form: “As a <type of user>, I can <take some action> so I can <some reason>.” You can start with the following user stories as a backlog for your MVP:
+
 1.	As a user, I can sign up for an account and provide my personal information: name, phone, and email. I can choose my role as a workspace owner or a coworker.
 
 2.	As an owner, I can list a property with the following information:
@@ -53,25 +54,8 @@ The Minimum Viable Product (MVP) is the smallest conceivable list of features th
 ## Instructor's Feedback: 
 The first part of the project was to improve and normalize the table where user would be able ot search for the address, type of rental, Lease, in an efficient way for the queries. Therefore, FK tables were created to support the  PK tables and columns were added to support a different way of adding and searching for the address.
 
-## Normalization and Constratins BEFORE
 
-[Normalization Before](https://github.com/LizzyTrevisan/Co-working-Database-Project/blob/main/ERD_Group%20Project.pdf)
-
-## ERD BEFORE
-[ERD Before](https://github.com/LizzyTrevisan/Co-working-Database-Project/blob/main/ERD_Group%20Project.pdf)
-
-
-## Normalization and Constratins AFTER
-[Normalization After](https://github.com/LizzyTrevisan/Co-working-Database-Project/blob/main/Tables%20reevaluated%20after%20FeedBack.pdf)
-
-## ERD AFTER
-
-
-[ERD After](https://github.com/LizzyTrevisan/Co-working-Database-Project/blob/main/FINAL%20ERD.pdf)
-
-
-## Prerequisites
-
+Vs code Studio
 SQL Server Management Studio
 
 
