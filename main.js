@@ -26,7 +26,7 @@ const navLinks = document.createElement("div");
 navLinks.className = "nav-links";
 
 const linkHome = document.createElement("a");
-linkHome.href = "#home";
+linkHome.href = "index.html";
 linkHome.textContent = "Home";
 
 const linkSignUp = document.createElement("a");
