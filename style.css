@@ -288,3 +288,52 @@ footer {
   background-color: #4267B2;
   color: white;
 }
+
+.form-card {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+@media (max-width: 500px) {
+    .form-card {
+        margin: 20px;
+        padding: 20px;
+    }
+}
+form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #3b4b69;
+    box-shadow: 0 0 4px rgba(59, 75, 105, 0.3);
+}
+
+.button-container {
+  margin-top: 20px; /* Adjust the value as needed */
+}

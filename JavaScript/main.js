@@ -30,7 +30,7 @@ linkHome.href = "index.html";
 linkHome.textContent = "Home";
 
 const linkSignUp = document.createElement("a");
-linkSignUp.href = "#signup";
+linkSignUp.href = "register.html";
 linkSignUp.textContent = "Sign Up";
 
 const loginBtnNav = document.createElement("button");
@@ -74,7 +74,7 @@ btnContainer.className = "hero-btns";
 
 const getStartedBtn = document.createElement("button");
 getStartedBtn.className = "get-started";
-getStartedBtn.textContent = "Rent";
+getStartedBtn.textContent = "Get Started";
 getStartedBtn.addEventListener("click", () => {
   window.location.href = "create-account.html";
 });
@@ -129,7 +129,7 @@ column2.innerHTML = `
   <h4>Quick Links</h4>
   <ul>
     <li><a href="#">Home</a></li>
-    <li><a href="#">Sign Up</a></li>
+    <li><a href="register.html">Sign Up</a></li>
 
 `;
 
