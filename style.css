@@ -289,6 +289,101 @@ footer {
   color: white;
 }
 
+
+
+/* workplace details page*/
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #1f2937;
+  font-weight: 800;
+}
+
+.workspace-card {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background-color: white;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.workspace-card img {
+  width: 250px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+
+.workspace-info {
+  text-align: left;
+  max-width: 400px;
+}
+
+.workspace-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.price {
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.desc {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-bottom: 20px;
+}
+
+.workspace-actions button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  background-color: white;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+}
+
+.workspace-actions button:hover {
+  background-color: #f1f5f9;
+}
+
+.workspace-footer-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .form-card {
     max-width: 400px;
     margin: 50px auto;
@@ -335,5 +430,89 @@ form select:focus {
 }
 
 .button-container {
-  margin-top: 20px; /* Adjust the value as needed */
+  margin-top: 20px;
 }
+
+/* workplace list page */
+
+.workspace-list-main {
+  text-align: center;
+  padding: 50px 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.workspace-list-main h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 40px;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 40px 20px;
+}
+
+.workspace-card {
+  display: flex;
+  gap: 20px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  align-items: center;
+}
+
+.workspace-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-text .type {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.card-text .price {
+  font-weight: bold;
+  color: #111827;
+}
+
+.card-text .desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.select-btn {
+  display: block;
+  margin: 0 auto;
+  text-decoration: none;
+  background-color: white;
+  color: #111827;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.select-btn:hover {
+  background-color: #f3f4f6;
+}
+
