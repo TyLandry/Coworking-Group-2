@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Coworking App</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="JavaScript/main.js" defer></script>
-  <script src="JavaScript/login.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Coworking App</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="./JavaScript/main.js" defer></script>
+    <!--Already added module so that main will compile all the program!-->
+    <!--<script src="JavaScript/login.js" defer></script>!-->
+  </head>
+  <body>
+    <div id="navbar-container"></div>
 
-</head>
-<body>
-  <div id="navbar-container"></div>
+    <main>
+      <section class="login-section">
+        <center><h1>Login</h1></center>
 
-  <main>
-    <section class="login-section">
-      <center><h1>Login</h1></center>
+        <center><p>Please enter your email and password to log in.</p></center>
 
-      <center><p>Please enter your email and password to log in.</p></center>
+        <form class="login-form" id="login-form">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
 
-      <form class="login-form">
-        <label for="email">Email address</label>
-        <input type="email" id="email" placeholder="Enter your email" required />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="submit" class="login-btn" id="loginButton">
+            Login
+          </button>
+        </form>
 
-        <button type="submit" class="login-btn">Login</button>
-      </form>
+        <p class="login-extra">
+          Don’t have an account?
+          <a href="register.html">Create one here</a>
+        </p>
 
-      <p class="login-extra">
-        Don’t have an account?
-        <a href="register.html">Create one here</a>
-      </p>
-
-      <div class="social-login">
-        <p>Or log in with</p>
-        <button class="social-btn google">Google</button>
-        <button class="social-btn facebook">Facebook</button>
-      </div>
-    </section>
-  </main>
+        <div class="social-login">
+          <p>Or log in with</p>
+          <button class="social-btn google">Google</button>
+          <button class="social-btn facebook">Facebook</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

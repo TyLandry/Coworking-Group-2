@@ -1,161 +1,59 @@
-/* @Description: I have used ChatGpt only as a guide to clarify doubts and add new functionalities I have seen or don't remember. Lizzy
-OpenAI. (2025). ChatGPT (June 2025 version). https://chat.openai.com/*/
+//For error testing, making sure that main JS fires on all HTML files
+console.log("Main script is running!");
 
+//Call landing page
+import {LandingPage} from "./landing.js";
+try {
+  const landing = new LandingPage();
+  landing.init();
+  //Catch the landing page before it loads to other html and script.
+  //Landing does try to load first before going to other imports.
+  } catch (err) {
+    console.log("Landing cannot load at this", err.message);
+  }
 
-//HEADER
+//Manually add user so the owner doesnt need to create one
+const defaultUser = {
+  firstName: "Owner",
+  lastName: "User",
+  email: "user@example.com",
+  phone: "1234567890",
+  password: "password123",
+  role: "owner"
+};
 
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
-// NAVBAR
-const nav = document.createElement("nav");
+//Only add the user if it doesnt exist
+const exists = users.some(user => user.email === defaultUser.email);
 
-// LOGO
+if (!exists) {
+  users.push(defaultUser);
+  localStorage.setItem("users", JSON.stringify(users));
+  console.log("Default owner account created.");
+} else {
+  console.log("Default owner account already exists.");
+}
 
-const logoDiv = document.createElement("div");
-logoDiv.className = "logo";
+//Call login
+import {Login} from "./login.js";
+const loginForm = document.getElementById("login-form");
 
-const logoImg = document.createElement("img");
-logoImg.src = "images/coworking.png";
-logoImg.alt = "Coworking Logo";
-logoImg.style.height = "80px";
+if (loginForm) {
+  const login = new Login();
+  login.login();
+}else{
+    console.log("Login page isn't responding.");
+}
 
-logoDiv.appendChild(logoImg);
+//Call register
+import {Register} from './register.js';
+const form = document.getElementById("registration-form");
 
-
-// Navbar
-const navLinks = document.createElement("div");
-navLinks.className = "nav-links";
-
-const linkHome = document.createElement("a");
-linkHome.href = "index.html";
-linkHome.textContent = "Home";
-
-const linkSignUp = document.createElement("a");
-linkSignUp.href = "register.html";
-linkSignUp.textContent = "Sign Up";
-
-const loginBtnNav = document.createElement("button");
-loginBtnNav.className = "login-button";
-loginBtnNav.textContent = "Login";
-
-
-//Login button form Nav will direct to Login Page
-loginBtnNav.addEventListener("click", () => {
-  window.location.href = "login.html";
-});
-
-
-// Links added to Nav Bar 
-
-navLinks.appendChild(linkHome);
-navLinks.appendChild(linkSignUp);
-navLinks.appendChild(loginBtnNav);
-
-nav.appendChild(logoDiv);
-nav.appendChild(navLinks);
-document.getElementById("navbar-container").appendChild(nav);
-
-//TITLE
-const pageTitle = document.createElement("h1");
-pageTitle.textContent = "Welcome to Coworking Page";
-
-//DOM
-document.getElementById("title").appendChild(pageTitle);
-
-
-//TITLE and Subtitle
-const subTitle = document.createElement("h5");
-subTitle.textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-document.getElementById("subTitle").appendChild(subTitle);
-
-//Btns Get Started nad Login - Hero Section
-const btnContainer = document.createElement("div");
-btnContainer.className = "hero-btns";
-
-const getStartedBtn = document.createElement("button");
-getStartedBtn.className = "get-started";
-getStartedBtn.textContent = "Get Started";
-getStartedBtn.addEventListener("click", () => {
-  window.location.href = "create-account.html";
-});
-
-const loginBtn = document.createElement("button");
-loginBtn.className = "login-btn";
-loginBtn.textContent = "Login";
-loginBtn.addEventListener("click", () => {
-  window.location.href = "login.html";
-});
-
-btnContainer.appendChild(getStartedBtn);
-btnContainer.appendChild(loginBtn);
-
-//CARDS
-const btnPlaceholder = document.getElementById("hero-button-placeholder");
-btnPlaceholder.appendChild(btnContainer);
-
-// Mid section paragraphs 
-
-document.getElementById("midSection").textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-document.getElementById("subParagraph").textContent =
-  "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-
-// Paragraph end of Page
-document.getElementById("endSection").textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-document.getElementById("lastParagraph").textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
-// FOOTER 
-const footer = document.querySelector("footer");
-const footerContainer = document.createElement("div");
-footerContainer.className = "footer-container";
-
-// Column 1 - Text
-const column1 = document.createElement("div");
-column1.className = "footer-column";
-const p = document.createElement("p");
-
-//FOOTER PARAGRAPH
-
-p.textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-column1.appendChild(p);
-
-// Column 2 -Links
-const column2 = document.createElement("div");
-column2.className = "footer-column";
-column2.innerHTML = `
-  <h4>Quick Links</h4>
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="register.html">Sign Up</a></li>
-
-`;
-
-// Column 3 - Socials
-const column3 = document.createElement("div");
-column3.className = "footer-column";
-column3.innerHTML = `
-  <h4>Socials</h4>
-  <ul>
-    <li><a href="#">Instagram</a></li>
-    <li><a href="#">Facebook</a></li>
-  </ul>
-`;
-
-footerContainer.appendChild(column1);
-footerContainer.appendChild(column2);
-footerContainer.appendChild(column3);
-
-// Footer bottom
-const bottom = document.createElement("div");
-bottom.className = "footer-bottom";
-bottom.innerHTML = `
-  ©2024 Company Name. All rights reserved |
-  <a href="#" style="color:white;">Privacy Policy</a> |
-  <a href="#" style="color:white;">Terms & Conditions</a>
-`;
-
-footer.appendChild(footerContainer);
-footer.appendChild(bottom);
+if (form) {
+  const registration = new Register();
+  registration.register();
+  console.log("Register handler attached");
+}else{
+  console.log("Error, not working");
+}
