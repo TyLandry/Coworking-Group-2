@@ -2,10 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+   
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    
 }
 
 nav {
@@ -18,6 +20,21 @@ nav {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
+}
+
+.login-button-nav{
+  width: 100px; 
+  padding: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  background-color:#1e3c72;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
 }
 
 .logo {
@@ -41,20 +58,6 @@ nav {
     color: #1f2937;
 }
 
-.login-button {
-    background-color: #3b4b69;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.login-button:hover {
-    background-color: #2c3e5d;
-}
-
 main {
     padding: 20px 20px;
     text-align: center;
@@ -64,15 +67,25 @@ main {
     margin: 5px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    color: #4b5563;
+    color:#2a5298;
+    font-size: 30px;
 }
+
+.pageTitle{
+   color: #1e3c72;
+}
+
 #midSection{
   margin: 30px;
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(75, 85, 99);
+  color: #1e3c72;
 
 }
+/* <!--I have modified id for the login btn, in teh main js, because there was a conflict with Login Page css. ***ASK Heather if we could reuse the id code on login.js to avoid more code */
+#hero-button-placeholder{
+  width: 100%;
 
+}
 
 .hero-btns{
 display: flex;
@@ -82,8 +95,8 @@ display: flex;
   margin-top: 40px;
 }
 
-.get-started,
-.login-btn { 
+.register-btn,
+.login-btn-main { 
   width: 130px; 
   padding: 10px;
   font-size: 0.7rem;
@@ -92,23 +105,29 @@ display: flex;
   border-radius: 8px;
   border: 1px solid rgba(75, 85, 99, 0.3);
   background-color: white;
-  color: #3b4b69;
+  color: #1e3c72;
   cursor: pointer;
   transition: all 0.2s ease;
 
 }
 
-.get-started:hover,
-.login-btn:hover {
-  background-color: #f5f5f5;
+.login-btn-main{
+  background-color:#1e3c72;
+  color: white;
+}
+
+.register-btn:hover,
+.login-btn-main:hover,
+.login-button-nav:hover {
+  background-color: rgb(42, 82, 152, 0.5);
   transform: scale(1.02);
 }
 
 #subTitle, #subParagraph, #lastParagraph{
   margin: 50px;
-  font-size: 0.6rem;
+  font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(31, 41, 55, 0.5);
+  color:rgb(42, 82, 152, 0.8);
 }
 
 #card-section {
@@ -118,6 +137,8 @@ display: flex;
   padding: 40px 20px;
   max-width: 1000px;
   margin: 0 auto;
+  color: #2a5298;
+  font-weight: bold;
 }
 
 .card {
@@ -203,6 +224,8 @@ footer {
   margin-bottom: 10px;
   object-fit: contain;
 }
+
+/*--- end of Main ---*/
 
 .login-section {
   max-width: 400px;

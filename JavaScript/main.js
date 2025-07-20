@@ -33,8 +33,9 @@ const linkSignUp = document.createElement("a");
 linkSignUp.href = "register.html";
 linkSignUp.textContent = "Sign Up";
 
+
 const loginBtnNav = document.createElement("button");
-loginBtnNav.className = "login-button";
+loginBtnNav.className = "login-button-nav";
 loginBtnNav.textContent = "Login";
 
 
@@ -56,6 +57,7 @@ document.getElementById("navbar-container").appendChild(nav);
 
 //TITLE
 const pageTitle = document.createElement("h1");
+pageTitle.className = "pageTitle";
 pageTitle.textContent = "Welcome to Coworking Page";
 
 //DOM
@@ -65,7 +67,7 @@ document.getElementById("title").appendChild(pageTitle);
 //TITLE and Subtitle
 const subTitle = document.createElement("h5");
 subTitle.textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  "Connect with premium workspace solutions. Whether you're looking for a space or offering one, we've got you covered.";
 document.getElementById("subTitle").appendChild(subTitle);
 
 //Btns Get Started nad Login - Hero Section
@@ -73,21 +75,23 @@ const btnContainer = document.createElement("div");
 btnContainer.className = "hero-btns";
 
 const getStartedBtn = document.createElement("button");
-getStartedBtn.className = "get-started";
-getStartedBtn.textContent = "Get Started";
+getStartedBtn.className = "register-btn";
+getStartedBtn.textContent = "Sign Up";
 getStartedBtn.addEventListener("click", () => {
-  window.location.href = "create-account.html";
+  window.location.href = "register.html";
 });
 
-const loginBtn = document.createElement("button");
-loginBtn.className = "login-btn";
-loginBtn.textContent = "Login";
-loginBtn.addEventListener("click", () => {
+const loginBtnMainPage = document.createElement("button");
+loginBtnMainPage.className = "login-btn-main";
+loginBtnMainPage.textContent = "Login";
+loginBtnMainPage.addEventListener("click", () => {
   window.location.href = "login.html";
 });
 
 btnContainer.appendChild(getStartedBtn);
-btnContainer.appendChild(loginBtn);
+btnContainer.appendChild(loginBtnMainPage);
+
+
 
 //CARDS
 const btnPlaceholder = document.getElementById("hero-button-placeholder");
@@ -96,15 +100,15 @@ btnPlaceholder.appendChild(btnContainer);
 // Mid section paragraphs 
 
 document.getElementById("midSection").textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+  "Rent your property. Find your perfect Workspace.";
 document.getElementById("subParagraph").textContent =
-  "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+  "Everything you need to rent a property and rent a workspace, you can find here";
 
 // Paragraph end of Page
 document.getElementById("endSection").textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+  "Ready to start?";
 document.getElementById("lastParagraph").textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  "Join to our group of professionals who have already rented properties or found their workspace.";
 
 // FOOTER 
 const footer = document.querySelector("footer");
@@ -119,7 +123,7 @@ const p = document.createElement("p");
 //FOOTER PARAGRAPH
 
 p.textContent =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  "CCorworking connecting you and other professional to the best property and workspace.";
 column1.appendChild(p);
 
 // Column 2 -Links
@@ -152,7 +156,7 @@ footerContainer.appendChild(column3);
 const bottom = document.createElement("div");
 bottom.className = "footer-bottom";
 bottom.innerHTML = `
-  ©2024 Company Name. All rights reserved |
+  ©2024 Coworking Group 2 Project. All rights reserved |
   <a href="#" style="color:white;">Privacy Policy</a> |
   <a href="#" style="color:white;">Terms & Conditions</a>
 `;
