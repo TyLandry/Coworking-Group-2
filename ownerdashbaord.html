@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Owner Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="JavaScript/main.js" type="module" defer></script>
+  <script src="JavaScript/ownerDashboard.js" defer></script>
+  
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Owner Dashboard</h1>
+    <div class="dashboard-actions">
+      <button id="addPropertyBtn">Add Property</button>
+      <button id="addWorkspaceBtn">Add Workspace</button>
+    </div>
+    <div class="dashboard-controls">
+      <input type="text" id="searchBar" placeholder="Search properties by name">
+      <select id="sortDropdown">
+        <option>Name</option>
+        <option>Date Added</option>
+        <option>Capacity</option>
+        <option>Price</option>
+      </select>
+      <select id="filterDropdown">
+        <option>All Workspaces</option>
+        <option>Available</option>
+        <option>Unavailable</option>
+      </select>
+    </div>
+    <div id="propertiesGallery" class="properties-gallery">
+      <!-- Properties will be rendered here by JavaScript -->
+    </div>
+  </div>
+</body>
+</html>

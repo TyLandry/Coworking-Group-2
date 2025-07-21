@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Property</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="JavaScript/main.js" type="module" defer></script>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <div class="form-card">
+    <h2>Add Property</h2>
+    <form id="addPropertyForm">
+      <label for="propertyPhoto">Photo URL</label>
+      <input type="url" id="propertyPhoto" required>
+
+      <label for="propertyAddress">Address</label>
+      <input type="text" id="propertyAddress" required>
+
+      <label for="propertyName">Property Name</label>
+      <input type="text" id="propertyName" required>
+
+      <label for="propertyNeighborhood">Neighborhood</label>
+      <input type="text" id="propertyNeighborhood" required>
+
+      <label for="propertySquareFootage">Square Footage</label>
+      <input type="number" id="propertySquareFootage" min="1" required>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="propertyParking">
+          Parking Available
+        </label>
+        <label>
+          <input type="checkbox" id="propertyPublicTransit">
+          Reachable by Public Transit
+        </label>
+      </div>
+      <div class="button-container">
+        <button type="submit" class="add-property-button">Add Property</button>
+      </div>
+    </form>
+  </div>
+  <footer></footer>
+</body>
+</html>
