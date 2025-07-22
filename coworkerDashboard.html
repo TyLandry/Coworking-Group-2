@@ -2,23 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Owner Dashboard</title>
+  <title>Coworker Dashboard</title>
   <link rel="stylesheet" href="style.css">
   <script src="JavaScript/main.js" type="module" defer></script>
-  <script src="JavaScript/ownerDashboard.js" defer></script>
-  
+  <script src="JavaScript/coworkerDashboard.js" defer></script>
 </head>
 <body>
-  <div id="navbar-container"></div>
+    
+<div id="navbar-container"></div>
   <div class="dashboard-container">
-    <h1>Owner Dashboard</h1>
-    <div class="dashboard-actions">
-      <button id="addPropertyBtn">Add Property</button>
-      <button id="addWorkspaceBtn">Add Workspace</button>
-    </div>
-    <div class="dashboard-controls">
-      <input type="text" id="searchBar" placeholder="Search properties by name">
+    <h1>Coworker Dashboard</h1>
 
+ <div class="dashboard-controls">
+      <input type="text" id="searchBar" placeholder="Search properties by name">
       <select id="sortDropdown">
         <option>Name</option>
         <option>Date Added</option>
@@ -31,8 +27,11 @@
         <option>Unavailable</option>
       </select>
     </div>
+    
+    <div class="dashboard-actions">
+      <button id="searchWorkspace">Search</button>
     <div id="propertiesGallery" class="properties-gallery">
-      <!-- Properties will be rendered here by JavaScript -->
+     
     </div>
   </div>
 </body>

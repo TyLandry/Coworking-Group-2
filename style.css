@@ -535,7 +535,7 @@ form select:focus {
 
 .dashboard-container {
   max-width: 1200px;
-  margin: 2rem auto;
+  /* margin: 2rem auto; */
   background: #fff;
   border-radius: 8px;
   padding: 2rem;
@@ -693,4 +693,8 @@ form select:focus {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+h1{
+text-align: center;
 }
