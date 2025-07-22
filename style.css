@@ -330,6 +330,7 @@ h1 {
   font-weight: 800;
 }
 
+
 .workspace-card {
   display: flex;
   align-items: center;
@@ -745,7 +746,7 @@ contact-main {
   color: #2a5298;
 }
 
-.contact-btn{
+.contact-btn-owner{
   width: fit-content;
   padding: 10px;
   margin-top: 50px;

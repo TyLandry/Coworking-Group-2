@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //The btn here once clicked will popup a window to write an email to the owner.
 
-  const contactBtn = document.querySelector(".contact-btn");
+  const contactBtn = document.querySelector(".contact-btn-owner");
   const modal = document.getElementById("contactModal");
   const closeBtn = document.querySelector(".close-btn");
   const sendBtn = document.getElementById("sendBtn");
