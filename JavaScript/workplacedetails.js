@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   contactBtn.addEventListener("click", () => {
-    window.location.href = "contact.html";
+    window.location.href = "contactInfo.html";
   });
 });

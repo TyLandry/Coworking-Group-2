@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coworker Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="JavaScript/main.js" type="module" defer></script>
+  <script src="JavaScript/coworkerDashboard.js" defer></script>
+</head>
+<body>
+    
+<div id="navbar-container"></div>
+  <div class="dashboard-container">
+    <h1>Coworker Dashboard</h1>
+
+ <div class="dashboard-controls">
+      <input type="text" id="searchBar" placeholder="Search properties by name">
+      <select id="sortDropdown">
+        <option>Name</option>
+        <option>Date Added</option>
+        <option>Capacity</option>
+        <option>Price</option>
+      </select>
+      <select id="filterDropdown">
+        <option>All Workspaces</option>
+        <option>Available</option>
+        <option>Unavailable</option>
+      </select>
+    </div>
+    
+    <div class="dashboard-actions">
+      <button id="searchWorkspace">Search</button>
+    <div id="propertiesGallery" class="properties-gallery">
+     
+    </div>
+  </div>
+</body>
+</html>

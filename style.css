@@ -330,6 +330,7 @@ h1 {
   font-weight: 800;
 }
 
+
 .workspace-card {
   display: flex;
   align-items: center;
@@ -807,4 +808,3 @@ form select:focus {
 
 .workspace-actions button.delete:hover {
   background-color: #c82333;
-}

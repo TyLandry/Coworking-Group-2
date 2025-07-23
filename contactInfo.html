@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Property</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="JavaScript/main.js" type="module" defer></script>
+  <script src="JavaScript/contactInfo.js" defer></script>
+</head>
+<body>
+
+  <header>
+  <nav class="nav-coworker">
+    <img class="logo" src="images/coworking.png">
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="coworkerDashboard.html">Dashboard</a>
+    </div>
+
+    <div class="nav-user">
+       <img src="images/CoWorker Avatar.png" alt="coworker" class="nav-avatar" />
+      <div class="user-info">
+        <span class="user-name">Paula</span><br><br>
+        <span class="user-role">CoWorker</span>
+      </div>
+    
+    </div>
+  </nav>
+</header>
+
+  <main class="contact-info">
+     <h1>Contact Info</h1>
+
+  <div class="contact-container">
+    <div class="workspace-image">
+      <img src="images/workplace1.jpg" alt="workspace" />
+      <p id="workspaceName"></p>
+    </div>
+
+    <div class="owner-info">
+      <img id="ownerAvatar" src="images/Owner Avatar.png" alt="ownerPicture" />
+      <h2 id="ownerName"></h2>
+      <p id="ownerDescription"></p><br>
+      <p id="ownerPhone">Phone: </p>
+      <p id="ownerEmail">Email: </p>
+      <button class="contact-btn-owner">Contact Owner</button>
+    </div>
+
+    <div id="contactModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h3>Contact Owner</h3>
+      <input type="email" id="popupEmail" placeholder="Your email">
+      <textarea id="popupMessage" placeholder="Write your message"></textarea>
+      <button id="sendBtn">Send</button>
+    </div>
+</div>
+    
+  </div>
+</body>
+</html>
