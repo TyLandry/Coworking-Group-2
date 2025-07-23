@@ -46,9 +46,9 @@ function renderProperties(props) {
         </label>
       </div>
       <div class="property-actions">
-        <button onclick="rentProperty(${prop.id})">Rent</button>
-        <button onclick="contactInformation(${prop.id})">Contact Information</button>
-      </div>
+  <button class="select-btn blue">Select</button>
+</div>
+
     `;
     gallery.appendChild(card);
   });
