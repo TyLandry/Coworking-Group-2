@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Add Workspace</title>
   <link rel="stylesheet" href="style.css">
-  <script src="JavaScript/main.js" type="module" defer></script>
+  <script src="JavaScript/addworkspace.js" defer></script>
 </head>
 <body>
   <div id="navbar-container"></div>
@@ -14,8 +14,11 @@
       <label for="workspaceName">Workspace Name</label>
       <input type="text" id="workspaceName" required>
 
-      <label for="workspaceProperty">Property Location</label>
-      <select id="workspaceProperty" required>
+      <label for="workspaceType">Workspace Type</label>
+      <select id="workspaceType" required>
+        <option value="Private Office">Private Office</option>
+        <option value="Meeting Room">Meeting Room</option>
+        <option value="Open Area Desk">Open Area Desk</option>
       </select>
 
       <label for="workspaceSeats">Number of Seats</label>

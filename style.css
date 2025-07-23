@@ -694,3 +694,117 @@ form select:focus {
   cursor: pointer;
   transition: background 0.2s;
 }
+
+.property-card {
+  border: 1px solid #ddd;
+  border-radius: 12px; /* Rounded corners for a clean look */
+  padding: 1.5rem; /* Increased padding to ensure content fits inside the box */
+  background-color: #fff; /* Matches workspace card background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for visual depth */
+  text-align: center; /* Centers content inside the card */
+  width: 100%; /* Ensures the card takes up full width of its container */
+  max-width: 400px; /* Limits the maximum width for a clean layout */
+  margin: 0 auto; /* Centers the card horizontally */
+}
+
+.property-photo {
+  width: 80px; /* Adjusted size to fit inside the card */
+  height: 80px; /* Adjusted size to fit inside the card */
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto 1rem; /* Centers the image and adds spacing below */
+}
+
+.property-info h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem; /* Adds spacing below the title */
+}
+
+.property-info p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem; /* Adds spacing below each paragraph */
+}
+
+.property-actions {
+  display: flex;
+  gap: 0.5rem; /* Adds spacing between buttons */
+  margin-top: 1rem; /* Adds spacing above the buttons */
+  justify-content: center; /* Centers buttons horizontally */
+}
+
+.property-actions button {
+  padding: 0.6rem 1.2rem; /* Adjusted padding for uniformity */
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px; /* Rounded corners for a clean look */
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.property-actions button:hover {
+  background-color: #0056b3;
+}
+
+.workspace-section {
+  margin-top: 2rem; /* Increased spacing for separation */
+  flex: 1; /* Allows the workspace section to take up necessary space */
+}
+
+/* Workspace card styling */
+.workspace-card {
+  border: 1px solid #ddd;
+  border-radius: 12px; /* Rounded corners for a clean look */
+  padding: 1.5rem; /* Increased padding to ensure content fits inside the box */
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for visual depth */
+  text-align: center; /* Centers content inside the card */
+  width: 100%; /* Ensures the card takes up full width of its container */
+  max-width: 1000px; /* Increased width for a wider layout */
+  margin: 0 auto 1rem; /* Centers the card horizontally and adds spacing below */
+}
+
+/* Workspace content styling */
+.workspace-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem; /* Adds spacing below the title */
+}
+
+.workspace-card p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem; /* Adds spacing below each paragraph */
+}
+
+/* Workspace actions styling */
+.workspace-actions {
+  display: flex;
+  gap: 1rem; /* Adds spacing between buttons */
+  margin-top: 1rem; /* Adds spacing above the buttons */
+  justify-content: center; /* Centers buttons horizontally */
+}
+
+.workspace-actions button {
+  padding: 0.6rem 1.2rem; /* Adjusted padding for uniformity */
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px; /* Rounded corners for a clean look */
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1; /* Ensures buttons are evenly spaced and adapt to card width */
+  max-width: 150px; /* Restricts button width to maintain a neat layout */
+}
+
+.workspace-actions button:hover {
+  background-color: #218838;
+}
+
+.workspace-actions button.delete {
+  background-color: #dc3545;
+}
+
+.workspace-actions button.delete:hover {
+  background-color: #c82333;
+}

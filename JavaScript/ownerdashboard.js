@@ -1,32 +1,21 @@
-// Example property data
-const properties = [
-  {
-    id: 1,
-    name: "Downtown Loft",
-    address: "123 Main St",
-    neighborhood: "Downtown",
-    squareFootage: 1500,
-    parking: true,
-    publicTransit: false,
-    photo: "images/property1.jpg"
-  },
-  {
-    id: 2,
-    name: "City Apartment",
-    address: "456 Oak Ave",
-    neighborhood: "Midtown",
-    squareFootage: 900,
-    parking: false,
-    publicTransit: true,
-    photo: "images/property2.jpg"
-  },
-];
+//References
+//https://www.freecodecamp.org/news/use-local-storage-in-modern-applications/
+//https://www.devcurry.com/2014/01/using-localstorage-in-html5-with.html
+//https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
 
-// Render properties to HTML
+//Arnold Jansen Agcaoili was also very helpful when it came to the local storage
+
+
+
+// Retrieve properties from localStorage or initialize an empty array
+const properties = JSON.parse(localStorage.getItem("properties")) || [];
+
+// Function to render properties to HTML
 function renderProperties(props) {
   const gallery = document.getElementById("propertiesGallery");
-  gallery.innerHTML = "";
+  gallery.innerHTML = ""; // Clear existing content
 
+  //Method to define the HTML structure for each property card
   props.forEach(prop => {
     const card = document.createElement("div");
     card.className = "property-card";
@@ -47,65 +36,25 @@ function renderProperties(props) {
         </label>
       </div>
       <div class="property-actions">
-        <button onclick="editProperty(${prop.id})">Edit</button>
-        <button onclick="deleteProperty(${prop.id})">Delete</button>
+        <button onclick="selectProperty(${prop.id})">Select</button>
       </div>
     `;
     gallery.appendChild(card);
   });
 }
 
-// Example handlers for edit and delete buttons
-window.editProperty = function(id) {
-  window.location.href = 'editproperty.html';
+// Function to select property handler
+window.selectProperty = function (id) {
+  // Method to save the selected property ID to localStorage
+  localStorage.setItem("selectedPropertyId", id);
+  // Redirect to the property details page
+  window.location.href = "propertydetails.html";
 };
 
-window.deleteProperty = function(id) {
-  if (confirm("Are you sure you want to delete this property?")) {
-    // Remove property from array
-    const idx = properties.findIndex(p => p.id === id);
-    if (idx !== -1) {
-      properties.splice(idx, 1);
-      updateGallery();
-    }
-  }
+// Function to add Property button handler
+document.getElementById("addPropertyBtn").onclick = function () {
+  window.location.href = "./addproperty.html"; // Ensure the path is correct
 };
 
-document.getElementById("addPropertyBtn").onclick = function() {
-  window.location.href = "addproperty.html";
-};
-document.getElementById("addWorkspaceBtn").onclick = function() {
-  window.location.href = "addworkspace.html";
-};
-
-// Search, sort, and filter logic
-function updateGallery() {
-  let filtered = [...properties];
-  const search = document.getElementById("searchBar").value.toLowerCase();
-  const sortBy = document.getElementById("sortDropdown").value;
-
-  if (search) {
-    filtered = filtered.filter(p => p.name.toLowerCase().includes(search));
-  }
-  switch (sortBy) {
-    case "Name":
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case "Neighborhood":
-      filtered.sort((a, b) => a.neighborhood.localeCompare(b.neighborhood));
-      break;
-    case "Square Footage":
-      filtered.sort((a, b) => a.squareFootage - b.squareFootage);
-      break;
-    default:
-      break;
-  }
-  renderProperties(filtered);
-}
-
-// Attach events for search and sort
-document.getElementById("searchBar").oninput = updateGallery;
-document.getElementById("sortDropdown").onchange = updateGallery;
-
-// Initial render
+// Function call for initial render
 renderProperties(properties);
