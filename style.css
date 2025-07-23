@@ -697,46 +697,46 @@ form select:focus {
 
 .property-card {
   border: 1px solid #ddd;
-  border-radius: 12px; /* Rounded corners for a clean look */
-  padding: 1.5rem; /* Increased padding to ensure content fits inside the box */
-  background-color: #fff; /* Matches workspace card background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for visual depth */
-  text-align: center; /* Centers content inside the card */
-  width: 100%; /* Ensures the card takes up full width of its container */
-  max-width: 400px; /* Limits the maximum width for a clean layout */
-  margin: 0 auto; /* Centers the card horizontally */
+  border-radius: 12px; 
+  padding: 1.5rem; 
+  background-color: #fff; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-align: center; 
+  width: 100%; 
+  max-width: 400px; 
+  margin: 0 auto;
 }
 
 .property-photo {
-  width: 80px; /* Adjusted size to fit inside the card */
-  height: 80px; /* Adjusted size to fit inside the card */
+  width: 80px; 
+  height: 80px; 
   object-fit: cover;
   border-radius: 8px;
-  margin: 0 auto 1rem; /* Centers the image and adds spacing below */
+  margin: 0 auto 1rem;
 }
 
 .property-info h2 {
   font-size: 1.2rem;
-  margin-bottom: 0.5rem; /* Adds spacing below the title */
+  margin-bottom: 0.5rem;
 }
 
 .property-info p {
   font-size: 0.9rem;
-  margin-bottom: 0.5rem; /* Adds spacing below each paragraph */
+  margin-bottom: 0.5rem; 
 }
 
 .property-actions {
   display: flex;
-  gap: 0.5rem; /* Adds spacing between buttons */
-  margin-top: 1rem; /* Adds spacing above the buttons */
-  justify-content: center; /* Centers buttons horizontally */
+  gap: 0.5rem; 
+  margin-top: 1rem;
+  justify-content: center; 
 }
 
 .property-actions button {
-  padding: 0.6rem 1.2rem; /* Adjusted padding for uniformity */
+  padding: 0.6rem 1.2rem; 
   font-size: 0.9rem;
   border: none;
-  border-radius: 6px; /* Rounded corners for a clean look */
+  border-radius: 6px; 
   background-color: #007bff;
   color: white;
   cursor: pointer;
@@ -748,53 +748,53 @@ form select:focus {
 }
 
 .workspace-section {
-  margin-top: 2rem; /* Increased spacing for separation */
-  flex: 1; /* Allows the workspace section to take up necessary space */
+  margin-top: 2rem; 
+  flex: 1; 
 }
 
-/* Workspace card styling */
+
 .workspace-card {
   border: 1px solid #ddd;
-  border-radius: 12px; /* Rounded corners for a clean look */
-  padding: 1.5rem; /* Increased padding to ensure content fits inside the box */
+  border-radius: 12px; 
+  padding: 1.5rem; 
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for visual depth */
-  text-align: center; /* Centers content inside the card */
-  width: 100%; /* Ensures the card takes up full width of its container */
-  max-width: 1000px; /* Increased width for a wider layout */
-  margin: 0 auto 1rem; /* Centers the card horizontally and adds spacing below */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-align: center; 
+  width: 100%; 
+  max-width: 1000px; 
+  margin: 0 auto 1rem; 
 }
 
-/* Workspace content styling */
+
 .workspace-card h4 {
   font-size: 1.2rem;
-  margin-bottom: 0.5rem; /* Adds spacing below the title */
+  margin-bottom: 0.5rem;
 }
 
 .workspace-card p {
   font-size: 0.9rem;
-  margin-bottom: 0.5rem; /* Adds spacing below each paragraph */
+  margin-bottom: 0.5rem; 
 }
 
-/* Workspace actions styling */
+
 .workspace-actions {
   display: flex;
-  gap: 1rem; /* Adds spacing between buttons */
-  margin-top: 1rem; /* Adds spacing above the buttons */
-  justify-content: center; /* Centers buttons horizontally */
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center; 
 }
 
 .workspace-actions button {
-  padding: 0.6rem 1.2rem; /* Adjusted padding for uniformity */
+  padding: 0.6rem 1.2rem;
   font-size: 0.9rem;
   border: none;
-  border-radius: 6px; /* Rounded corners for a clean look */
+  border-radius: 6px;
   background-color: #28a745;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  flex: 1; /* Ensures buttons are evenly spaced and adapt to card width */
-  max-width: 150px; /* Restricts button width to maintain a neat layout */
+  flex: 1;
+  max-width: 150px;
 }
 
 .workspace-actions button:hover {
