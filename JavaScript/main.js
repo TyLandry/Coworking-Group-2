@@ -58,3 +58,9 @@ if (form) {
   console.log("Error, not working");
 }
 
+
+// code checks what page is currently loaded and runs the login handler if it's the login page
+if (window.location.pathname.includes("login.html")) {
+  const login = new Login();
+  login.login();
+}
