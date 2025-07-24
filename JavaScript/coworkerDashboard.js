@@ -59,7 +59,7 @@ function filterAndSearch() {
   const sort = document.getElementById("sortDropdown").value;
   const filter = document.getElementById("filterDropdown").value;
 
-  let result = workspaces.filter((item) => {
+  let result = properties.filter((item) => {
     const matchesSearch = item.name.toLowerCase().includes(search);
     const matchesFilter =
       filter === "All Workspaces" ||
@@ -88,5 +88,5 @@ renderProperties(properties);
 
 document.getElementById("searchWorkspace").addEventListener("click", filterAndSearch);
 document.getElementById("sortDropdown").addEventListener("click", filterAndSearch);
-document.getElementById("filterDropdown");
-document.getElementById("searchWor")
+document.getElementById("filterDropdown").addEventListener("click", filterAndSearch);
+document.getElementById("searchWork").addEventListener("click", filterAndSearch);
