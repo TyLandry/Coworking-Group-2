@@ -23,14 +23,22 @@ export class Login {
       const userFound = users.find((user) => user.email === email && user.password === password
       );
     
-      if(userFound){
+     if (userFound) {
         alert("Login successful!");
-        window.location.href = "index.html";
-        //To check if the form did go through
+
+        // Redirect based on user role, "over" for owner, "coworker" for coworker.
+        if (userFound.role === "owner") {
+          window.location.href = "ownerdashboard.html";
+        } else if (userFound.role === "coworker") {
+          window.location.href = "coworkerdashboard.html";
+        } else {
+          window.location.href = "index.html"; // fallback
+        }
+        // To check if the form did go through
         console.log("Form submitted with:", email, password);
-      }else{
+      } else {
         alert("Invalid email or password.");
-        console.log("Form was inputted with wrong credentials.", email, password);
+        console.log("Form was inputted with wrong credentials:", email, password);
       }
 
       // if (email === this.validEmail && password === this.validPassword) {
