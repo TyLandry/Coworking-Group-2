@@ -32,6 +32,11 @@ export class Register {
       const saveUsers = {firstName, lastName, email, phone, password, role};
       //adds the new user 
       const users = JSON.parse(localStorage.getItem("users")) || [];
+      //Checks for duplicates (Specifically for Email and Phone)
+      const duplicate = users.find(user => user.email === email || user.phone === phone);
+      if (duplicate) {
+        return this.showMessage("An account with this email or phone already exists", true);
+      }
       users.push(saveUsers);
       //Saves the new User inside of the "local storage"
       localStorage.setItem("users", JSON.stringify(users));
