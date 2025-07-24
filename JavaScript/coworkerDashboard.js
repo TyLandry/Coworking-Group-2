@@ -7,6 +7,10 @@ const properties = [
     address: "123 Main St",
     neighborhood: "Downtown",
     squareFootage: 1500,
+    capacity: 8,
+    price: 1455,
+    dateAdded: "2024-05-07",
+    available: true,
     parking: true,
     publicTransit: false,
     photo: "images/workplace1.jpg"
@@ -17,6 +21,10 @@ const properties = [
     address: "456 Oak Ave",
     neighborhood: "Midtown",
     squareFootage: 900,
+    capacity: 5,
+    price: 1200,
+    dateAdded: "2024-07-01",
+    available: false,
     parking: false,
     publicTransit: true,
     photo: "images/workplace2.jpg"
@@ -89,4 +97,5 @@ renderProperties(properties);
 document.getElementById("searchWorkspace").addEventListener("click", filterAndSearch);
 document.getElementById("sortDropdown").addEventListener("click", filterAndSearch);
 document.getElementById("filterDropdown").addEventListener("click", filterAndSearch);
-document.getElementById("searchWork").addEventListener("click", filterAndSearch);
+// document.getElementById("searchWork").addEventListener("click", filterAndSearch); // Not sure about this line of code, couldnt find searchWork in the html file
+
