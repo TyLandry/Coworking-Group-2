@@ -1,4 +1,5 @@
 //For error testing, making sure that main JS fires on all HTML files
+//Make sure to add type = "module" before src inside the script!
 console.log("Main script is running!");
 
 //Call landing page
