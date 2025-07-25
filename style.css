@@ -809,3 +809,183 @@ form select:focus {
 .workspace-actions button.delete:hover {
   background-color: #c82333;
 }
+
+
+*Contact Info Page*/
+
+.nav-coworker{
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 15px 30px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  color: #2a5298;
+
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  color: #2a5298;
+}
+.nav-avatar {
+  width: 60x;
+  height:60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+contact-main {
+  padding: 40px;
+  text-align: center;
+  color: #2a5298;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  size: 50%;
+  gap: 40px;
+  margin-top: 30px;
+  color: #2a5298;
+}
+
+.contact-btn{
+  width: fit-content;
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  background-color: #1e3c72;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.workspace-image img {
+  width: 300px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+.owner-info {
+  text-align: left;
+  max-width: 400px;
+}
+
+.owner-info img {
+  width:100px;
+  height: 100px;
+  text-align: right;
+  font-size: 0.85rem;
+  border-radius: 50%;
+  color: #444;
+  line-height: 1.6;
+}
+/* pop-up window for the email*/
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1e3c72;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgb(30, 60, 114, 0.9);
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.modal-content button {
+  width: 100pt;
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgb(30, 60, 114, 0.3);
+  background-color: #1e3c72;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-content button:hover {
+  background-color: #1d3f75;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.hidden {
+  display: none;
+}
+
+.close-btn {
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.contact-btn-owner{
+  width: 100pt;
+  padding: 10px;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgb(30, 60, 114, 0.3);
+  background-color: #1e3c72;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
