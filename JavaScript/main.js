@@ -58,8 +58,19 @@ if (form) {
   console.log("Error, not working");
 }
 
+//Import ownerdashboard
+import {Property} from './ownerdashboard.js';
 
-// code checks what page is currently loaded and runs the login handler if it's the login page
+//If statement to check if the buttons are existing on the current HTML so that DOM will know when to run this block of code
+if (document.getElementById("propertiesGallery") && document.getElementById("addPropertyBtn")) {
+  const property = new Property("propertiesGallery", "addPropertyBtn");
+} else {
+  //Error handling to know if the ownerdashboard isn't firing/working
+  console.log("Elements are not found");
+}
+
+
+//Code checks what page is currently loaded and runs the login handler if it's the login page
 if (window.location.pathname.includes("login.html")) {
   const login = new Login();
   login.login();
