@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Workspace</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="JavaScript/editworkspace.js" defer></script>
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <div class="form-card">
+    <h2>Edit Workspace</h2>
+    <form id="editWorkspaceForm">
+      <label for="workspaceName">Workspace Name</label>
+      <input type="text" id="workspaceName" required>
+
+      <label for="workspaceType">Workspace Type</label>
+      <select id="workspaceType" required>
+        <option value="Private Office">Private Office</option>
+        <option value="Meeting Room">Meeting Room</option>
+        <option value="Open Area Desk">Open Area Desk</option>
+      </select>
+
+      <label for="workspaceSeats">Number of Seats</label>
+      <input type="number" id="workspaceSeats" min="1" required>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="workspaceSmoking">
+          Smoking Allowed
+        </label>
+      </div>
+
+      <label for="workspaceAvailability">Availability Date</label>
+      <input type="date" id="workspaceAvailability" required>
+
+      <label for="workspaceLease">Lease Option</label>
+      <select id="workspaceLease" required>
+        <option value="Day">Day</option>
+        <option value="Week">Week</option>
+        <option value="Month">Month</option>
+      </select>
+
+      <label for="workspacePrice">Price</label>
+      <input type="number" id="workspacePrice" min="0" required>
+
+      <div class="button-container">
+        <button type="submit" class="save-Button">Save Changes</button>
+      </div>
+    </form>
+  </div>
+  <footer></footer>
+</body>
+</html>

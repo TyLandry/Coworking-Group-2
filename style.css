@@ -659,7 +659,7 @@ form select:focus {
   margin: 8px 0;
 }
 
-.edit-property-button {
+.svae-Button {
   margin-right: 1rem;
   background-color: #3b4b69;
   color: white;
