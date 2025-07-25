@@ -69,6 +69,12 @@ if (document.getElementById("propertiesGallery") && document.getElementById("add
   console.log("Elements are not found");
 }
 
+//Call property details
+import {PropertyDetails} from './propertydetails.js';
+document.addEventListener('DOMContentLoaded', () => {
+  // Instantiate and render the selected property details
+  const propertyDetails = new PropertyDetails();
+});
 
 //Code checks what page is currently loaded and runs the login handler if it's the login page
 if (window.location.pathname.includes("login.html")) {

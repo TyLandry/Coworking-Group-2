@@ -22,7 +22,7 @@ export class Property {
     //Render properties on initialization
     this.renderProperties(this.properties);
     //Bind event listener for the add property button
-    document.getElementById(this.addButtonId).onclick = this.addProperty;
+    document.getElementById(this.addButtonId).addEventListener('click', this.addProperty.bind(this));
   }
 
   //Function to render properties to HTML
@@ -51,10 +51,19 @@ export class Property {
           </label>
         </div>
         <div class="property-actions">
-          <button onclick="selectProperty(${prop.id})">Select</button>
+          <button class="select-property" data-id="${prop.id}">Select</button>
         </div>
       `;
       gallery.appendChild(card);
+    });
+
+    // Add event listeners for all "Select" buttons dynamically
+    const selectButtons = gallery.querySelectorAll('.select-property');
+    selectButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const propertyId = e.target.getAttribute('data-id');
+        this.selectProperty(propertyId);
+      });
     });
   }
 
@@ -64,13 +73,14 @@ export class Property {
   }
 
   //Function to select property handler
-  static selectProperty(id) {
+  selectProperty(id) {
     // Method to save the selected property ID to localStorage
     localStorage.setItem("selectedPropertyId", id);
     // Redirect to the property details page
     window.location.href = "propertydetails.html";
   }
 }
+
 
 
 
