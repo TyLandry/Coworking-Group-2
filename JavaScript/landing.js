@@ -31,8 +31,8 @@ export class LandingPage {
     logoImg.src = "images/coworking.png";
     logoImg.alt = "Coworking Logo";
     logoImg.style.height = "80px";
-
     logoDiv.appendChild(logoImg);
+
 
     //Navbar
     const navLinks = document.createElement("div");
@@ -40,11 +40,36 @@ export class LandingPage {
 
     const linkHome = document.createElement("a");
     linkHome.href = "index.html";
-    linkHome.textContent = "Home";
+    linkHome.textContent = "Home";  
+    navLinks.appendChild(linkHome);
+
+    //added to get into logged mode
+    const loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (loggedUser) {//appears whoever logged in
+    // DASHBOARD
+    const dashboardLink = document.createElement("a");
+    dashboardLink.href = loggedUser.role.toLowerCase() === "owner"
+      ? "ownerDashboard.html"
+      : "coworkerDashboard.html";
+    dashboardLink.textContent = "Dashboard";
+    navLinks.appendChild(dashboardLink);
+
+    // LOGOUT
+    const logoutBtn = document.createElement("button");
+    logoutBtn.className = "login-button-nav";
+    logoutBtn.textContent = "Logout";
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    });
+    navLinks.appendChild(logoutBtn);
+  } else {
 
     const linkSignUp = document.createElement("a");
     linkSignUp.href = "register.html";
     linkSignUp.textContent = "Sign Up";
+     navLinks.appendChild(linkSignUp);
 
     const loginBtnNav = document.createElement("button");
     loginBtnNav.className = "login-button-nav";
@@ -56,10 +81,9 @@ export class LandingPage {
     });
 
     //Links added to Nav Bar
-    navLinks.appendChild(linkHome);
-    navLinks.appendChild(linkSignUp);
+  
     navLinks.appendChild(loginBtnNav);
-
+  }
     nav.appendChild(logoDiv);
     nav.appendChild(navLinks);
     document.getElementById("navbar-container")?.appendChild(nav);

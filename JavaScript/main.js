@@ -2,6 +2,17 @@
 //Make sure to add type = "module" before src inside the script!
 console.log("Main script is running!");
 
+//trying the alert successfully logged in without the glitch using DOM here
+document.addEventListener("DOMContentLoaded", () => {
+  const loginMessage = localStorage.getItem("loginMessage");
+  if (loginMessage === "show") {
+    alert("Login successful!");
+    localStorage.removeItem("loginMessage"); // prevent repeat
+  }
+});
+
+
+
 //Call landing page
 import {LandingPage} from "./landing.js";
 try {

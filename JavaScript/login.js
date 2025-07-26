@@ -23,9 +23,16 @@ export class Login {
       const userFound = users.find((user) => user.email === email && user.password === password
       );
     
-     if (userFound) {
-        alert("Login successful!");
+     if (userFound) { 
+      
 
+        //  trying the logged to appear dashboard and logout on the nav bar -- Lizzy
+        localStorage.setItem("loggedInUser", JSON.stringify(userFound));
+
+        //I replaced the alert into this "show" sign to alert the user that has been logged in successfully.  it comes fro the DOM main. then it will not allow to load twice the same message
+        localStorage.setItem("loginMessage", "show");
+    
+        //alert("Login successful!");
         // Redirect based on user role, "over" for owner, "coworker" for coworker.
         if (userFound.role === "owner") {
           window.location.href = "ownerdashboard.html";
@@ -36,6 +43,7 @@ export class Login {
         }
         // To check if the form did go through
         console.log("Form submitted with:", email, password);
+    
       } else {
         alert("Invalid email or password.");
         console.log("Form was inputted with wrong credentials:", email, password);
