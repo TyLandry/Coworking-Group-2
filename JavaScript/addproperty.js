@@ -21,6 +21,7 @@ document.getElementById("addPropertyForm").onsubmit = function (e) {
     parking: parking,
     publicTransit: publicTransit,
     photo: photo,
+    workspace: []
   };
 
   // Retrieve existing properties from localStorage or initialize an empty array

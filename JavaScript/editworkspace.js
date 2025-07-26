@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("workspaceName").value = workspace.name;
     document.getElementById("workspaceType").value = workspace.type;
     document.getElementById("workspaceSeats").value = workspace.seats;
-    document.getElementById("workspaceSmoking").checked = !!workspace.smoking;
+    document.getElementById("workspaceSmoking").checked = !!workspace.smokingAllowed;
     document.getElementById("workspaceAvailability").value = workspace.availability;
-    document.getElementById("workspaceLease").value = workspace.lease;
+    document.getElementById("workspaceLease").value = workspace.leaseOption;
     document.getElementById("workspacePrice").value = workspace.price;
   }
   // Call this on page load
@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("properties", JSON.stringify(properties));
 
     alert("Workspace updated successfully!");
+    
     window.location.href = "./propertydetails.html";
   });
 });
