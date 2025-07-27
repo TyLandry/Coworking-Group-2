@@ -71,6 +71,11 @@ if (form) {
 }
 
 //Import ownerdashboard
+
+
+// Aj look this over, add property would not link back to owner dash after pushing add property button without addproperty.js file
+//and edit property does not work either
+
 import {Property} from './ownerdashboard.js';
 
 //If statement to check if the buttons are existing on the current HTML so that DOM will know when to run this block of code
