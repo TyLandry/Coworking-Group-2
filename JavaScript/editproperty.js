@@ -16,7 +16,7 @@ function populateForm(property) {
   document.getElementById("propertyName").value = property.name;
   document.getElementById("propertyAddress").value = property.address;
   document.getElementById("propertyNeighborhood").value = property.neighborhood;
-  document.getElementById("propertySize").value = property.squareFootage;
+  document.getElementById("propertySquareFootage").value = property.squareFootage;
   document.getElementById("propertyPhoto").value = property.photo;
   document.getElementById("propertyParking").checked = property.parking;
   document.getElementById("propertyPublicTransit").checked = property.publicTransit;
@@ -32,7 +32,7 @@ document.getElementById("editPropertyForm").addEventListener("submit", function 
     name: document.getElementById("propertyName").value,
     address: document.getElementById("propertyAddress").value,
     neighborhood: document.getElementById("propertyNeighborhood").value,
-    squareFootage: parseInt(document.getElementById("propertySize").value, 10),
+    squareFootage: parseInt(document.getElementById("propertySquareFootage").value, 10),
     photo: document.getElementById("propertyPhoto").value,
     parking: document.getElementById("propertyParking").checked,
     publicTransit: document.getElementById("propertyPublicTransit").checked,

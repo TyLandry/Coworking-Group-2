@@ -71,8 +71,6 @@ if (form) {
 }
 
 //Import ownerdashboard
-
-
 // Aj look this over, add property would not link back to owner dash after pushing add property button without addproperty.js file
 //and edit property does not work either
 
