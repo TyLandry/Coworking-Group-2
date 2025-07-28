@@ -70,10 +70,15 @@ if (form) {
   console.log("Error, not working");
 }
 
-//Import ownerdashboard
-// Aj look this over, add property would not link back to owner dash after pushing add property button without addproperty.js file
-//and edit property does not work either
+//Call AddProperty
+import {AddProperty} from './addproperty.js';
+//Only run AddProperty if the addPropertyForm exists
+const formElement = document.getElementById("addPropertyForm");
+if (formElement) {
+  new AddProperty("addPropertyForm"); 
+}
 
+//Import ownerdashboard 
 import {Property} from './ownerdashboard.js';
 
 //If statement to check if the buttons are existing on the current HTML so that DOM will know when to run this block of code
@@ -86,10 +91,7 @@ if (document.getElementById("propertiesGallery") && document.getElementById("add
 
 //Call property details
 import {PropertyDetails} from './propertydetails.js';
-document.addEventListener('DOMContentLoaded', () => {
-  // Instantiate and render the selected property details
-  const propertyDetails = new PropertyDetails();
-});
+const propertyDetails = new PropertyDetails();
 
 //Code checks what page is currently loaded and runs the login handler if it's the login page
 if (window.location.pathname.includes("login.html")) {
