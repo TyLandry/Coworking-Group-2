@@ -40,12 +40,55 @@ function renderProperties(props) {
     });
   });
 }
+// this function filters properties based on search input and selected filters and renders the filtered properties.
+// the if statement checks if the search input is empty.
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
 
 function filterAndSearch() {
-  // ... Your filter/sort logic, using the properties array ...
+  
+  const input = document.getElementById("searchBar").value.toLowerCase().trim();
+//split the input into keywords.
+  const keywords = input.split(/\s+/); 
+//starts filtering properties based on the keywords.
+  const filtered = properties.filter(prop => {
+// every term in keywords must match at least one property attribute. used multipe if statements to keep search flexible. example, can search a property by name, address and square footage together.
+    return keywords.every(term => {
+      if (prop.name.toLowerCase().includes(term)) return true;
+      if (prop.address.toLowerCase().includes(term)) return true;
+      if (prop.neighborhood.toLowerCase().includes(term)) return true;
+      if (prop.squareFootage && String(prop.squareFootage).includes(term)) return true;
+      if (prop.capacity && String(prop.capacity).includes(term)) return true;
+      if (term === "parking" && prop.parking) return true;
+      if (term === "transit" && prop.publicTransit) return true;
+      if (term === "smoking" && prop.smoking) return true;
+      if ((term === "non-smoking" || term === "nosmoking") && !prop.smoking) return true;
+      if (prop.leaseTerm && prop.leaseTerm.toLowerCase().includes(term)) return true;
+      if (term.includes("price")) {
+        const priceValue = parseInt(term.replace(/\D/g, ""));
+        if (!isNaN(priceValue) && prop.price <= priceValue) return true;
+      }
+      if (term.match(/\d{4}-\d{2}-\d{2}/)) { // Check for date format YYYY-MM-DD
+        const searchDate = new Date(term);
+        const available = new Date(prop.availabilityDate);
+        if (!isNaN(searchDate.getTime()) && available <= searchDate) return true;
+      }
+
+      return false;
+    });
+  });
+
+  renderProperties(filtered);
 }
 
+
 renderProperties(properties);
+
+
 
 document.getElementById("searchWorkspace").addEventListener("click", filterAndSearch);
 document.getElementById("sortDropdown").addEventListener("click", filterAndSearch);
