@@ -15,14 +15,19 @@
     <h1>RENT A WORKSPACE</h1>
 
     <div class="workspace-card">
-      <img src="images/property1.jpg" alt="Workspace Image">
+      <img id="workspace-image" src="images/workplace1.jpg" alt="Workspace Image">
 
       <div class="workspace-info">
-        <h3 class="workspace-title" id="workspace-title">Private Office</h3>
-        <p class="price" id="workspace-price">$120</p>
-        <p class="desc" id="workspace-description">A quiet, comfortable office ideal for small teams. Detailed information about the workspace will be provided here.
-      You can rent this workspace for a day, week, or month. Contact the owner for more details.</p>
-
+        <h3 class="workspace-title" id="workspace-title"></h3>
+        <p class="price" id="workspace-price"></p>
+        <div class="workspace-attributes">
+          <div><strong>Type:</strong> <span id="workspace-type"></span></div>
+          <div><strong>Seats:</strong> <span id="workspace-seats"></span></div>
+          <div><strong>Smoking Allowed:</strong> <span id="workspace-smoking"></span></div>
+          <div><strong>Availability:</strong> <span id="workspace-availability"></span></div>
+          <div><strong>Lease Option:</strong> <span id="workspace-lease"></span></div>
+          <div><strong>Description:</strong> <span id="workspace-description"></span></div>
+        </div>
         <div class="workspace-actions">
           <button class="rent-btn">Rent Workspace</button>
           <button class="contact-btn">Contact Owner</button>
