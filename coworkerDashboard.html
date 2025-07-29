@@ -15,30 +15,87 @@
 
  <div class="dashboard-controls">
   
-      
-      <input type="text" id="searchBar" placeholder="Search properties by name">
-      <select id="sortDropdown">
+      <div class="row">
+      <input type="text" id="searchBar" placeholder="Search by Keyword"/>
+
+      <!-- removed this below -->
+      <!-- <select id="sortDropdown">
         <option>Name</option>
         <option>Date Added</option>
         <option>Capacity</option>
         <option>Price</option>
-      </select>
+      </select> -->
+
+
       <select id="filterDropdown">
         <option>All Workspaces</option>
         <option>Available</option>
         <option>Unavailable</option>
       </select>
-    </div>
+  
+
+      <div class="filter-group">
+        <input type="number" id="minPrice" placeholder="Min Price"/>
+        <input type="number" id="maxPrice" placeholder="Max Price"/>
+
+        <input type="number" id="minSeats" placeholder="Min Seats"/>
+        <input type="number" id="maxSeats" placeholder="Max Seats"/>
+
+        <input type="number" id="minSquareFootage" placeholder="Min Square Footage"/>
+        <input type="number" id="maxSquareFootage" placeholder="Max Square Footage"/>
+        
+
+        <input type="date" id="availableDate"/>
+
+        <select id="leaseOption">
+          <option value="">Lease Term</option>
+          <option value="day">Day</option>
+          <option value="week">Week</option>
+          <option value="month">Month</option>
+
+        </select>
+
+        <select id="parkingFilter">
+          <option value="">Parking</option>
+          <option value="yes">W/ Parking</option>
+          <option value="no">Without Parking</option>
+        </select>
+
+        <select id="transitFilter">
+        <option value="">Public Transit </option>
+        <option value="yes">Reachable</option>
+        <option value="no">Not Reachable</option>
+
+        </select>
+
+        <select id="smokingFilter">
+          <option value="">Smoking</option>
+          <option value="yes">Allowed</option>
+          <option value="no">Not Allowed</option>
+        </select>
+
+
+      </div>
+
+      <div
     
     <div class="dashboard-actions">
       <button id="searchWorkspace">Search</button>
     <div id="propertiesGallery" class="properties-gallery">
-     
+     </div>
     </div>
     </div>
     </div>
-  <footer>      
-        &copy; 2025 Your Company. All Rights Reserved.
-    </footer>
+    <footer>
+        <img
+        src="images/coworkingNoBckg.png"
+        alt="Coworking Logo"
+        class="footer-logo"
+        />
+        ©2024 Coworking Group 2 Project. All rights reserved |
+      <a href="#" style="color:white;">Privacy Policy</a> |
+      <a href="#" style="color:white;">Terms & Conditions</a>
+      />
+  </footer>
 </body>
 </html>
