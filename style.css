@@ -487,6 +487,7 @@ form select:focus {
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
+  color:#1d3f75;
 }
 
 .card-text {
@@ -517,8 +518,8 @@ form select:focus {
   display: block;
   margin: 0 auto;
   text-decoration: none;
-  background-color: white;
-  color: #111827;
+  background-color: #1e3c72;
+  color: white;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 8px 16px;
@@ -528,12 +529,13 @@ form select:focus {
 }
 
 .select-btn:hover {
-  background-color: #f3f4f6;
+  background-color: #0056b3;
 }
 
 /* Owner Dashboard */
 
 .dashboard-container {
+  color: #1e3c72;
   max-width: 1200px;
   margin: 2rem auto;
   background: #fff;
@@ -554,6 +556,7 @@ form select:focus {
   padding: 10px 18px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 30px;
   transition: background 0.2s;
 }
 .dashboard-actions button:hover {
@@ -561,19 +564,30 @@ form select:focus {
 }
 
 .dashboard-controls {
-  margin-bottom: 2rem;
   display: flex;
-  gap: 1rem;
+  margin: 0 auto;
+  padding: 20px 0;
+  justify-content: center;
+  max-width: 1200px;
+  gap: 10px;
   flex-wrap: wrap;
+  color: #1d3f75;
 }
+
+
 .dashboard-controls input,
 .dashboard-controls select {
+  color: #1d3f75;
+  margin: 5px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #1e3c72;
   border-radius: 6px;
   min-width: 180px;
-  font-size: 1rem;
+  font-size: 14px;
+  box-sizing: border-box;
 }
+
+
 
 .properties-gallery {
   display: flex;
@@ -654,9 +668,11 @@ form select:focus {
 
 .checkbox-group {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 20px;
   margin: 8px 0;
+  justify-content: center;
 }
 
 .save-Button {
@@ -737,7 +753,7 @@ form select:focus {
   font-size: 0.9rem;
   border: none;
   border-radius: 6px;
-  background-color: #007bff;
+  background-color: #1d3f75;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -786,7 +802,7 @@ form select:focus {
   font-size: 0.9rem;
   border: none;
   border-radius: 6px;
-  background-color: #28a745;
+  background-color: #1e3c72;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -795,7 +811,7 @@ form select:focus {
 }
 
 .workspace-actions button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 .workspace-actions button.delete {
@@ -805,6 +821,7 @@ form select:focus {
 .workspace-actions button.delete:hover {
   background-color: #c82333;
 }
+
 
 *Contact Info Page*/ .nav-coworker {
   position: sticky;
