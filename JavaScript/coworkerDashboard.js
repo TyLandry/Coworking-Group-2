@@ -66,6 +66,22 @@ function filterAndSearch() {
   const input = document.getElementById("searchBar").value.toLowerCase().trim();
   const keywords = input.split(/\s+/);
 
+  const minPrice = parseInt(document.getElementById("minPrice").value);
+  const maxPrice = parseInt(document.getElementById("maxPrice").value);
+  const minSeats = parseInt(document.getElementById("minSeats").value);
+  const maxSeats = parseInt(document.getElementById("maxSeats").value);
+  const minSquareFootage = parseInt(document.getElementById("minSquareFootage").value);
+  const maxSquareFootage = parseInt(document.getElementById("maxSquareFootage").value);
+  const availableDate = new Date(document.getElementById("availableDate").value);
+  const leaseOption = document.getElementById("leaseOption").value.toLowerCase();
+  const parking = document.getElementById("parkingFilter").value;
+  const transit = document.getElementById("transitFilter").value;
+  const smoking =document.getElementById("smokingFilter").value;
+
+
+
+
+
   const filtered = properties.filter(prop => {
     return keywords.every(term => {
       
@@ -108,7 +124,29 @@ function filterAndSearch() {
       }
 
       return false;
+
+    }) &&
+
+    (parking === "" || (parking === "yes" && prop.parking) || (parking === "no" && !prop.parking)) &&
+    (transit === "" || (transit === "yes" && prop.publicTransit) || (transit === "no" && !prop.publicTransit)) &&
+    (isNaN(minSquareFootage) || prop.squareFootage >= minSquareFootage)&&
+    (isNaN(maxSquareFootage) || prop.squareFootage <= maxSquareFootage) &&
+    prop.workspaces.some(ws => {
+      return(
+        (smoking === "" || (smoking === "yes" && ws.smokingAllowed) || (smoking === "no" && !ws.smokingAllowed)) &&
+        (isNaN(minPrice) || ws.price >= minPrice) &&
+        (isNaN(maxPrice) || ws.price <= maxPrice) &&
+        (isNaN(minSeats) || ws.seats >= minSeats) &&
+        (isNaN(maxSeats) || ws.seats <= maxSeats) &&
+        (isNaN(minSquareFootage) || ws.squareFootage >= minSquareFootage) &&
+        (isNaN(maxSquareFootage) || ws.squareFootage <= maxSquareFootage)&&
+        (leaseOption === "" || (ws.leaseOption && ws.leaseOption.toLowerCase() === leaseOption)) &&
+        (isNaN(availableDate.getTime()) || new Date(ws.availability) <= availableDate)
+      );
+      
+      
     });
+  
   });
 
   renderProperties(filtered);
@@ -123,3 +161,4 @@ renderProperties(properties);
 document.getElementById("searchWorkspace").addEventListener("click", filterAndSearch);
 document.getElementById("sortDropdown").addEventListener("click", filterAndSearch);
 document.getElementById("filterDropdown").addEventListener("click", filterAndSearch);
+
