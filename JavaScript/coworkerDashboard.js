@@ -48,34 +48,63 @@ function renderProperties(props) {
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime
+/* by address, (works)
+neighborhood, (works)
+with/without smoking, (works)
+transit (works)
+parking (works)
+no parking not working.
+no transit not working.
+how would i search square feet? ex: 500 sq ft not working just putting the numner (500) does.
+how would i search lease term? searching day, week or month works for leasing.
+how would i search availability date? this format yyyy-mm-dd, but its not working.
+how would i search number of individuals it can seat? not currently working.
+how would i search price? price is including all prices, not working.
+*/
 
 function filterAndSearch() {
-  
   const input = document.getElementById("searchBar").value.toLowerCase().trim();
-//split the input into keywords.
-  const keywords = input.split(/\s+/); 
-//starts filtering properties based on the keywords.
+  const keywords = input.split(/\s+/);
+
   const filtered = properties.filter(prop => {
-// every term in keywords must match at least one property attribute. used multipe if statements to keep search flexible. example, can search a property by name, address and square footage together.
     return keywords.every(term => {
+      
       if (prop.name.toLowerCase().includes(term)) return true;
       if (prop.address.toLowerCase().includes(term)) return true;
       if (prop.neighborhood.toLowerCase().includes(term)) return true;
       if (prop.squareFootage && String(prop.squareFootage).includes(term)) return true;
-      if (prop.capacity && String(prop.capacity).includes(term)) return true;
-      if (term === "parking" && prop.parking) return true;
-      if (term === "transit" && prop.publicTransit) return true;
-      if (term === "smoking" && prop.smoking) return true;
-      if ((term === "non-smoking" || term === "nosmoking") && !prop.smoking) return true;
-      if (prop.leaseTerm && prop.leaseTerm.toLowerCase().includes(term)) return true;
-      if (term.includes("price")) {
-        const priceValue = parseInt(term.replace(/\D/g, ""));
-        if (!isNaN(priceValue) && prop.price <= priceValue) return true;
-      }
-      if (term.match(/\d{4}-\d{2}-\d{2}/)) { // Check for date format YYYY-MM-DD
-        const searchDate = new Date(term);
-        const available = new Date(prop.availabilityDate);
-        if (!isNaN(searchDate.getTime()) && available <= searchDate) return true;
+
+      
+      if (prop.workspaces && Array.isArray(prop.workspaces)) {
+        return prop.workspaces.some(ws => {
+          if (ws.name && ws.name.toLowerCase().includes(term)) return true;
+          if (ws.type && ws.type.toLowerCase().includes(term)) return true;
+          if (ws.seats && String(ws.seats).includes(term)) return true;
+
+          if (term === "parking" && prop.parking) return true;
+          if (term === "no parking" && !prop.parking) return true;
+
+          if (term === "transit" && prop.publicTransit) return true;
+          if (term === "no transit" && !prop.publicTransit) return true;
+
+          if (term === "smoking" && ws.smokingAllowed) return true;
+          if ((term === "non-smoking" || term === "nosmoking") && !ws.smokingAllowed) return true;
+
+          if (ws.leaseOption && ws.leaseOption.toLowerCase().includes(term)) return true;
+
+          if (term.includes("price")) {
+            const priceValue = parseInt(term.replace(/\D/g, ""));
+            if (!isNaN(priceValue) && ws.price <= priceValue) return true;
+          }
+          // Check for date format (YYYY-MM-DD) in the search term
+          if (term.match(/\d{4}-\d{2}-\d{2}/)) {
+            const searchDate = new Date(term);
+            const availability = new Date(ws.availability);
+            if (!isNaN(searchDate.getTime()) && availability <= searchDate) return true;
+          }
+
+          return false;
+        });
       }
 
       return false;
@@ -84,6 +113,7 @@ function filterAndSearch() {
 
   renderProperties(filtered);
 }
+
 
 
 renderProperties(properties);
