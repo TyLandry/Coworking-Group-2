@@ -34,8 +34,18 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Rented successfully!");
     });
   }
+
+    // Lizzy update because need to show info on contact info page
   if (contactBtn) {
     contactBtn.addEventListener("click", () => {
+      if(property && property.ownerEmail) {
+        localStorage.setItem("selectedOwnerEmail", property.ownerEmail);
+      }
+
+      if(workspace && workspace.name) {
+        localStorage.setItem("workspaceName", workspace.name);
+      }
+      
       window.location.href = "contactInfo.html";
     });
   }

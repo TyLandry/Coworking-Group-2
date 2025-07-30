@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
     //searches the owner's email from the localStorage
-    const owner = users.find(user => user.email === ownerEmail);//---I am not sure about this until we get Co
+    const owner = users.find(user => user.email === ownerEmail);//---I am not sure about this until we get Contact
 
     if(owner){
         document.getElementById("ownerName").textContent = `${owner.firstName} ${owner.lastName}`;
