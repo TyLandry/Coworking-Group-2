@@ -11,21 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+//repeated it is coming from landing page correctly
+// const navbarContainer = document.getElementById("navbar-container");
 
-const navbarContainer = document.getElementById("navbar-container");
-
-if (navbarContainer) {
-  navbarContainer.innerHTML = `
-    <nav>
-      <img src="images/logo.png" alt="Logo" class="logo" />
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-      </div>
-    </nav>
-  `
-}
+// if (navbarContainer) {
+//   navbarContainer.innerHTML = `
+//     <nav>
+//       <img src="images/logo.png" alt="Logo" class="logo" />
+//       <div class="nav-links">
+//         <a href="index.html">Home</a>
+//         <a href="login.html">Login</a>
+//         <a href="register.html">Register</a>
+//       </div>
+//     </nav>
+//   `
+// }
 
 
 
