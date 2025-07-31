@@ -12,6 +12,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+const navbarContainer = document.getElementById("navbar-container");
+
+if (navbarContainer) {
+  navbarContainer.innerHTML = `
+    <nav>
+      <img src="images/logo.png" alt="Logo" class="logo" />
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      </div>
+    </nav>
+  `
+}
+
+
 
 //Call landing page
 import {LandingPage} from "./landing.js";
@@ -100,10 +116,14 @@ if (window.location.pathname.includes("login.html")) {
 }
 
 // Importing coworkerdashboard
-import { CoworkerDashboard } from "./coworkerDashboard.js";
-
-if (window.location.pathname.includes("coworkerdashboard.html")) {
-  const coworker = new CoworkerDashboard("propertiesGallery", "searchWorkspace", "sortDropdown", "filterDropdown");
+try {
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes("coworkerdashboard.html")) {
+    const coworker = new CoworkerDashboard("propertiesGallery", "searchWorkspace", "sortDropdown", "filterDropdown");
+  }
+} catch (err) {
+  console.error("CoworkerDashboard failed to load:", err.message);
 }
+
 
 
