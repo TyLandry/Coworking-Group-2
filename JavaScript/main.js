@@ -115,10 +115,10 @@ if (window.location.pathname.includes("login.html")) {
   login.login();
 }
 
-// Importing coworkerdashboard
+// Importing coworkerDashboard
 try {
   const path = window.location.pathname.toLowerCase();
-  if (path.includes("coworkerdashboard.html")) {
+  if (path.includes("coworkerDashboard.html")) {
     const coworker = new CoworkerDashboard("propertiesGallery", "searchWorkspace", "sortDropdown", "filterDropdown");
   }
 } catch (err) {

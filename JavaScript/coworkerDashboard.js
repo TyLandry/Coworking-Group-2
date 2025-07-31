@@ -1,6 +1,6 @@
 const properties = JSON.parse(localStorage.getItem("properties")) || [];
 
-export class CoworkerDashboard {
+export class coworkerDashboard {
   constructor(galleryId, searchId, sortId, filterId) {
     this.galleryId = galleryId;
     this.searchId = searchId;
