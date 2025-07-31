@@ -98,3 +98,12 @@ if (window.location.pathname.includes("login.html")) {
   const login = new Login();
   login.login();
 }
+
+// Importing coworkerdashboard
+import { CoworkerDashboard } from "./coworkerDashboard.js";
+
+if (window.location.pathname.includes("coworkerdashboard.html")) {
+  const coworker = new CoworkerDashboard("propertiesGallery", "searchWorkspace", "sortDropdown", "filterDropdown");
+}
+
+
