@@ -1,5 +1,34 @@
 const properties = JSON.parse(localStorage.getItem("properties")) || [];
 
+export class CoworkerDashboard {
+  constructor(galleryId, searchId, sortId, filterId) {
+    this.galleryId = galleryId;
+    this.searchId = searchId;
+    this.sortId = sortId;
+    this.filterId = filterId;
+
+    this.properties = JSON.parse(localStorage.getItem("properties")) || [];
+
+    this.init();
+  }
+
+  init() {
+    this.renderProperties(this.properties);
+
+    document.getElementById(this.searchId)?.addEventListener("click", () => {
+      this.filterAndSearch();
+    });
+
+    document.getElementById(this.sortId)?.addEventListener("change", () => {
+      this.filterAndSearch();
+    });
+
+    document.getElementById(this.filterId)?.addEventListener("change", () => {
+      this.filterAndSearch();
+    });
+  }
+}
+
 function renderProperties(props) {
   const gallery = document.getElementById("propertiesGallery");
   gallery.innerHTML = "";
