@@ -95,8 +95,9 @@ function filterAndSearch() {
   const input = document.getElementById("searchBar").value.toLowerCase().trim();
   const keywords = input.split(/\s+/);
 
-  const minPrice = parseInt(document.getElementById("minPrice").value);
-  const maxPrice = parseInt(document.getElementById("maxPrice").value);
+  //price fixed
+  const minPrice = parseInt(document.getElementById("minPrice").value.replace(/[^\d]/g, ""));
+  const maxPrice = parseInt(document.getElementById("maxPrice").value.replace(/[^\d]/g, ""));
   const minSeats = parseInt(document.getElementById("minSeats").value);
   const maxSeats = parseInt(document.getElementById("maxSeats").value);
   const minSquareFootage = parseInt(document.getElementById("minSquareFootage").value);
@@ -119,6 +120,14 @@ function filterAndSearch() {
       if (prop.neighborhood.toLowerCase().includes(term)) return true;
       if (prop.squareFootage && String(prop.squareFootage).includes(term)) return true;
 
+
+      // //for square foot search to work
+      // const squareFootageMatch = term.match(/^(\d+)s*(sq\s*ft)?$/);
+      // if(squareFootageMatch) {
+      //   const termNumber = parseInt(squareFootageMatch[1]);
+      //   if(prop.squareFootage === termNumber) return true;
+      // }
+
       
       if (prop.workspaces && Array.isArray(prop.workspaces)) {
         return prop.workspaces.some(ws => {
@@ -135,12 +144,13 @@ function filterAndSearch() {
           if (term === "smoking" && ws.smokingAllowed) return true;
           if ((term === "non-smoking" || term === "nosmoking") && !ws.smokingAllowed) return true;
 
-          if (ws.leaseOption && ws.leaseOption.toLowerCase().includes(term)) return true;
+          if (ws.leaseOption?.toLowerCase().includes(term)) return true;
 
           if (term.includes("price")) {
             const priceValue = parseInt(term.replace(/\D/g, ""));
             if (!isNaN(priceValue) && ws.price <= priceValue) return true;
           }
+
           // Check for date format (YYYY-MM-DD) in the search term
           if (term.match(/\d{4}-\d{2}-\d{2}/)) {
             const searchDate = new Date(term);
@@ -156,10 +166,14 @@ function filterAndSearch() {
 
     }) &&
 
-    (parking === "" || (parking === "yes" && prop.parking) || (parking === "no" && !prop.parking)) &&
-    (transit === "" || (transit === "yes" && prop.publicTransit) || (transit === "no" && !prop.publicTransit)) &&
+   
     (isNaN(minSquareFootage) || prop.squareFootage >= minSquareFootage)&&
     (isNaN(maxSquareFootage) || prop.squareFootage <= maxSquareFootage) &&
+ 
+    (parking === "" || (parking === "yes" && prop.parking) || (parking === "no" && !prop.parking)) &&
+    (transit === "" || (transit === "yes" && prop.publicTransit) || (transit === "no" && !prop.publicTransit)) &&
+    
+    
     prop.workspaces.some(ws => {
       return(
         (smoking === "" || (smoking === "yes" && ws.smokingAllowed) || (smoking === "no" && !ws.smokingAllowed)) &&
@@ -167,8 +181,8 @@ function filterAndSearch() {
         (isNaN(maxPrice) || ws.price <= maxPrice) &&
         (isNaN(minSeats) || ws.seats >= minSeats) &&
         (isNaN(maxSeats) || ws.seats <= maxSeats) &&
-        (isNaN(minSquareFootage) || ws.squareFootage >= minSquareFootage) &&
-        (isNaN(maxSquareFootage) || ws.squareFootage <= maxSquareFootage)&&
+        // (isNaN(minSquareFootage) || (ws.squareFootage && ws.squareFootage >= minSquareFootage)) &&
+        // (isNaN(maxSquareFootage) || (ws.squareFootage && ws.squareFootage <= maxSquareFootage))&&
         (leaseOption === "" || (ws.leaseOption && ws.leaseOption.toLowerCase() === leaseOption)) &&
         (isNaN(availableDate.getTime()) || new Date(ws.availability) <= availableDate)
       );
@@ -182,12 +196,7 @@ function filterAndSearch() {
 }
 
 
-
-renderProperties(properties);
-
-
-
 document.getElementById("searchWorkspace").addEventListener("click", filterAndSearch);
-document.getElementById("sortDropdown").addEventListener("click", filterAndSearch);
+// document.getElementById("sortDropdown").addEventListener("click", filterAndSearch);
 document.getElementById("filterDropdown").addEventListener("click", filterAndSearch);
 
