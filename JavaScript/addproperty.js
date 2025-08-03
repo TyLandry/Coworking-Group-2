@@ -16,6 +16,14 @@ export class AddProperty {
   handleSubmit(e) {
     e.preventDefault();
   
+    const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    //Check if currentUser exists and has an email
+    if (!currentUser || !currentUser.email) {
+      alert("You must be logged in as an owner to add a property.");
+      return;
+    }
+
     //Retrieve form inputs
     const photo = document.getElementById("propertyPhoto").value;
     const address = document.getElementById("propertyAddress").value;
@@ -35,6 +43,8 @@ export class AddProperty {
       parking: parking,
       publicTransit: publicTransit,
       photo: photo,
+      ownerEmail: currentUser.email.trim().toLowerCase(),
+      workspaces: [] 
     };
 
     // Add the new property to the properties array

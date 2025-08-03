@@ -3,20 +3,42 @@ OpenAI. (2025). ChatGPT (June 2025 version). https://chat.openai.com/*/
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
+    // //It will bring up the email from Owner Contact
+    // const ownerEmail = localStorage.getItem("ownerEmail");
 
-    //It will bring up the email from Owner Contact
-    const ownerEmail = localStorage.getItem("selectedOwnerEmail");
+    // //retrieves the users added to JSON local storage file
+    // const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    //to display the name of the workspace from localstorage
-    const workspaceName = localStorage.getItem("workspaceName");
+    // //searches the owner's email from the localStorage
+    // const owner = users.find((user) => user.email === ownerEmail);//---I am not sure about this until we get Contact
 
+    //Find the workspace's property
+const selectedWorkspaceId = parseInt(localStorage.getItem("selectedWorkspaceId"), 10);
+//To display the name of the workspace from localstorage
+  const workspaceName = localStorage.getItem("workspaceName");
+const properties = JSON.parse(localStorage.getItem("properties")) || [];
+const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    //retrieves the users added to JSON local storage file
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+//Error Handling Method to check if all the data are firing properly
+console.log("selectedWorkspaceId:", selectedWorkspaceId);
+console.log("All properties:", properties);
+console.log("All users:", users);
 
-    //searches the owner's email from the localStorage
-    const owner = users.find(user => user.email === ownerEmail);//---I am not sure about this until we get Contact
+let owner = null;
+let property = null;
+
+//Loop to find its property and the ID of the workspace 
+for (const p of properties) {
+  const workspace = p.workspaces?.find(w => w.id === selectedWorkspaceId);
+  if (workspace) {
+    property  = p;
+    break;
+  }
+}
+
+if (property && property.ownerEmail) {
+  owner = users.find(user => user.email == property.ownerEmail);
+}
 
     if(owner){
         document.getElementById("ownerName").textContent = `${owner.firstName} ${owner.lastName}`;
@@ -73,4 +95,3 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});

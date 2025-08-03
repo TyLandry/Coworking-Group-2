@@ -19,6 +19,10 @@ export class PropertyDetails {
       return;
     }
 
+    if (this.selectedProperty.ownerEmail) {
+      localStorage.setItem("selectedOwnerEmail", this.selectedProperty.ownerEmail);
+    }
+
     detailsContainer.innerHTML = `
       <div class="property-card">
         <div class="property-info">

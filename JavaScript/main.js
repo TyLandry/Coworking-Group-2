@@ -107,7 +107,16 @@ if (document.getElementById("propertiesGallery") && document.getElementById("add
 
 //Call property details
 import {PropertyDetails} from './propertydetails.js';
-const propertyDetails = new PropertyDetails();
+try {
+  const path = window.location.pathname.toLowerCase();
+if (path.includes("propertydetails.html")){
+  const propertyDetails = new PropertyDetails();
+}
+} catch (err) {
+  console.error("Property details failed to load:", err.message);
+}
+
+
 
 //Code checks what page is currently loaded and runs the login handler if it's the login page
 if (window.location.pathname.includes("login.html")) {
