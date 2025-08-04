@@ -823,7 +823,8 @@ form select:focus {
   background-color: #c82333;
 }
 
-*Contact Info Page*/ .nav-coworker {
+/*Contact Info Page*/ 
+.nav-coworker {
   position: sticky;
   top: 0;
   background-color: #fff;
@@ -845,7 +846,7 @@ form select:focus {
   color: #2a5298;
 }
 .nav-avatar {
-  width: 60x;
+  width: 60px;
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
