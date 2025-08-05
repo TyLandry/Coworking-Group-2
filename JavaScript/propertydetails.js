@@ -43,9 +43,9 @@ export class PropertyDetails {
         </div>
         <div class="workspace-section">
           <h3>Workspaces</h3>
-          ${this.selectedProperty.workspaces && this.selectedProperty.workspaces.length > 0
+          ${this.selectedProperty.workspaces && this.selectedProperty.workspaces.length > 0 
             ? this.selectedProperty.workspaces.map(workspace => `
-              <div class="workspace-card">
+              <div class="workspace-card-details">    
                 <h4>${workspace.name}</h4>
                 <p><strong>Type:</strong> ${workspace.type}</p>
                 <p><strong>Seats:</strong> ${workspace.seats}</p>
@@ -64,7 +64,9 @@ export class PropertyDetails {
         </div>
       </div>
     `;
+ // Above Changed name from workspace-card to workspace-card-details inorder to avoid styling overlap
 
+ 
     //Add event listeners for property actions
     document.querySelector('.edit-property').addEventListener('click', this.editProperty.bind(this));
     document.querySelector('.delete-property').addEventListener('click', this.deleteProperty.bind(this));

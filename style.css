@@ -486,6 +486,46 @@ form select:focus {
   align-items: center;
 }
 
+
+/* changes start */
+.workspace-card-details {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 1rem;
+}
+
+.workspace-card-details h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.workspace-card-details p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.workspace-card-details .workspace-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.workspace-card-details img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  color: #1d3f75;
+}
+/* changes end */
+
 .workspace-card img {
   width: 150px;
   height: 150px;
