@@ -37,7 +37,7 @@ export class Login {
         if (userFound.role === "owner") {
           window.location.href = "ownerdashboard.html";
         } else if (userFound.role === "coworker") {
-          window.location.href = "coworkerdashboard.html";
+          window.location.href = "coworkerDashboard.html";
         } else {
           window.location.href = "index.html"; // fallback
         }
