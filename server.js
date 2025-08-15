@@ -12,6 +12,9 @@ dotenv.config();
 //Enable CORS so Postman/Frontend can call the API
 import cors from "cors";
 
+// Import routes
+import router from "./routes.js";
+
 const app = express();
 //For project purposes, PORT will be hardcoded inside of the backend.
 //Additional security purposes if PORT will be added inside of env which is a good practice.
@@ -32,6 +35,10 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.json({ ok: true, message: "Server alive" });
 });
+
+// Hook in all routes from routes.js
+// All routes like /register, /login, /profile will now work under /api
+app.use("/api", router);
 
 //Adding the route for the server to be established
 app.listen(PORT, () => {
