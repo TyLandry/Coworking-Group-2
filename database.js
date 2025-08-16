@@ -1,11 +1,12 @@
-//Database will be uploaded here
-import mongoose  from "mongoose";
 import dotenv from "dotenv";
-//Connect the sensitive key here.
-const uri = process.env.MONGODB_URI;
-
 //Establishing the connection to the MOngoDB database using mongoose.
 dotenv.config();
+
+//Database will be uploaded here
+import mongoose  from "mongoose";
+
+//Connect the sensitive key here.
+const uri = process.env.MONGODB_URI;
 
 export const connectDB = async () => {
   try {

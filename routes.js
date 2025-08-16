@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
 //This requires a valid JWT token
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
-     // Fetch user details from database, exclude password
+     // Fetches user details from database, exclude password
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
