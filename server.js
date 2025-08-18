@@ -22,22 +22,22 @@ const PORT = process.env.PORT || 3000;
 
 connectDB();
 
-// (Added) Global middlewares
+//(Added) Global middlewares
 app.use(cors());         
 app.use(express.json());   
 
-// (Added) Root route to avoid "Cannot GET /"
+//(Added) Root route to avoid "Cannot GET /"
 app.get("/", (req, res) => {
   res.send("API is up. Try GET /health");
 });
 
-// (Added) Health check route for quick testing
+//(Added) Health check route for quick testing
 app.get("/health", (req, res) => {
   res.json({ ok: true, message: "Server alive" });
 });
 
-// Hook in all routes from routes.js
-// All routes like /register, /login, /profile will now work under /api
+//Hook in all routes from routes.js
+//All routes like /register, /login, /profile will now work under /api
 app.use("/api", router);
 
 //Adding the route for the server to be established
