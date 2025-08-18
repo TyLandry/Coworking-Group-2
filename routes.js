@@ -51,8 +51,6 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     
     // Find the user by email
-
-    //Reinforce the password when making an API request
     const user = await User.findOne({ email }).select("+password");
     if (!user) return res.status(400).json({ message: "User not found" });
     
@@ -84,7 +82,7 @@ router.post("/login", async (req, res) => {
 //---------- Profile route ----------
 //Method: GET/profile
 //URL: "http://localhost:3000/api/profile"
-//This requires a valid JWT token and it will be received from login 
+//This requires a valid JWT token and it will be recieved from login 
 
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
