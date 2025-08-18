@@ -51,8 +51,8 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     
     // Find the user by email
-    const user = await User.findOne({ email }).select("+password");
-    if (!user) return res.status(400).json({ message: "Authentication failed" });
+    const user = await User.findOne({ email })//.select("+password");
+    if (!user) return res.status(400).json({ message: "User not found" });
     
     // Compare the password with hashed password in database
    // const isMatch = await bcrypt.compare(password, user.password);
@@ -63,7 +63,16 @@ router.post("/login", async (req, res) => {
     const token = generateToken(user);
 
     // Send the token
-    res.json({ token });
+    res.json({ token,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+      },
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -92,7 +101,7 @@ router.get("/profile", authMiddleware, async (req, res) => {
 //---------- Create user ----------
 // Method: POST
 //URL: http://localhost:3000/api/users
-router.post("/users", async (req, res) => {
+router.post("/users",authMiddleware, async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
