@@ -81,6 +81,11 @@ router.post("/login", async (req, res) => {
 
 // Protected example route
 //Method: GET/profile
+<<<<<<< HEAD
+//URL: "http://localhost:3000/api/profile"
+//This requires a valid JWT token and it will be recieved from login 
+=======
+>>>>>>> 8f65bda6199adf9929957ad4a33a4fd358be06cc
 
 //This requires a valid JWT token
 router.get("/profile", authMiddleware, async (req, res) => {
