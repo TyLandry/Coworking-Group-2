@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import User from "./user.js";
 import { generateToken, authMiddleware } from "./authentication.js";// JWT file
 import Property from "./property.js";
+import Workplace from "./workspace.js"; // this is for workspace import.
 
 // Create a router object to define routes
 const router = express.Router();
@@ -202,77 +203,59 @@ try{
 
 // ========================= OWNER: CRUD for workspaces (subdocuments cited above)============
 
-// GET all workspaces for a property
-router.get("/properties/:id/workspaces", async(req, res) => {
-  try {
-      const prop = await Property.findById(req.params.id).select("workspaces");
-      if (!prop) return res.status(404).json({ message: "Property not found" });
-      res.json(prop.workspaces);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-  });
+// ========================= OWNER: CRUD for workspaces (using Workplace model) ============
 
-//CREATE workspace
-router.post("/properties/:id/workspaces", authMiddleware, ensureOwner, async (req, res) => {
-  try {
-    const prop = await Property.findById(req.params.id);
-    if (!prop) return res.status(404).json({ message: "Property not found" });
-    // <-- ADDED ownership check
-    if (prop.ownerEmail !== req.ownerEmail) {
-      return res.status(403).json({ message: "You don't own this property." });
+// Get all workspaces for a specific property
+router.get("/properties/:id/workspaces", async (req, res) => {
+    try {
+        const workspaces = await Workplace.find({ property: req.params.id });
+        res.json(workspaces);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
-    prop.workspaces.push(req.body);
-    await prop.save();
-
-    const created = prop.workspaces[prop.workspaces.length - 1];
-    res.status(201).json(created);
-    
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
 });
 
-//UPDATE workspace
-router.put("/properties/:id/workspaces/:workspaceId", authMiddleware, ensureOwner, async(req, res) => {
-  try {
-      const prop = await Property.findById(req.params.id);
-      if (!prop) return res.status(404).json({ message: "Property not found" });
-      // <-- ADDED ownership check
-      if (prop.ownerEmail !== req.ownerEmail) {
-        return res.status(403).json({ message: "You don't own this property." });
-      }
-      const ws = prop.workspaces.id(req.params.workspaceId);
-      if(!ws) return res.status(404).json({message: "Workspace not found"});
-  
-      Object.assign(ws, req.body);
-      await prop.save();
-      res.json(ws);
-  
-    } catch (err) {
-      res.status(400).json({ message: err.message });
+// Create a new workspace for a specific property
+router.post("/properties/:id/workspaces", authMiddleware, ensureOwner, async (req, res) => {
+    try {
+        const workspace = new Workplace({
+            ...req.body,
+            property: req.params.id
+        });
+        await workspace.save();
+        res.status(201).json(workspace);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
-  });
+});
 
-//DELETE workspace
-router.delete("/properties/:id/workspaces/:workspaceId", authMiddleware, ensureOwner, async(req, res) => {
-  try {
-      const prop = await Property.findById(req.params.id);
-      if (!prop) return res.status(404).json({ message: "Property not found" });
-      // <-- ADDED ownership check
-      if (prop.ownerEmail !== req.ownerEmail) {
-        return res.status(403).json({ message: "You don't own this property." });
-      }
-      const ws = prop.workspaces.id(req.params.workspaceId);
-      if(!ws) return res.status(404).json({message: "Workspace not found"});
-  
-      ws.deleteOne();
-      await prop.save();
-      res.json({message: "Workspace deleted"});
-    } catch (err) {
-      res.status(400).json({ message: err.message });
+// Edit a workspace
+router.put("/workspaces/:workspaceId", authMiddleware, ensureOwner, async (req, res) => {
+    try {
+        const workspace = await Workplace.findByIdAndUpdate(
+            req.params.workspaceId,
+            req.body,
+            { new: true }
+        );
+        if (!workspace) return res.status(404).json({ message: "Workspace not found" });
+
+        res.json(workspace);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
-  });
+});
+
+// Delete a specific workspace
+router.delete("/workspaces/:workspaceId", authMiddleware, ensureOwner, async (req, res) => {
+    try {
+        const workspace = await Workplace.findByIdAndDelete(req.params.workspaceId);
+        if (!workspace) return res.status(404).json({ message: "Workspace not found" });
+
+        res.json({ message: "Workspace deleted successfully" });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 
 // Export router so it can be used in server.js
