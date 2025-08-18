@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 // it defines the structure of the workplace documents in the database
 // it includes fields for property, name, unit, and other relevant information
 // it also includes fields for sqft, seats, price, availability, smoking, term, and images
-const workplaceSchema = new mongoose.Schema(
+const workspaceSchema = new mongoose.Schema(
     {   
         property: { type: mongoose.Schema.Types.ObjectId, ref: "Property", required: true }, // this is a reference to the Property model
         name: { type: String, required: true },
@@ -20,5 +20,5 @@ const workplaceSchema = new mongoose.Schema(
 );
 // this creates the Workplace model
 // it will be used to interact with the workplace collection in the database
-const Workplace = mongoose.model("Workplace", workplaceSchema);
-export default Workplace;
+const Workspace = mongoose.model("Workspace", workspaceSchema);
+export default Workspace;
