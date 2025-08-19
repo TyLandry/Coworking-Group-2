@@ -7,7 +7,7 @@ export class Register {
     if (!form){
       return;
     } 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const firstName = document.getElementById("firstName").value.trim();
       const lastName = document.getElementById("lastName").value.trim();
@@ -19,6 +19,7 @@ export class Register {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const phoneRegex = /^\d{10}$/;
 
+      //Error handling for credentials
       if (!emailRegex.test(email)) {
         return this.showMessage("Invalid email format.", true);
       }
@@ -29,26 +30,48 @@ export class Register {
 
       //Save to localStorage
       //Adding local data storage by converting the data to string using .stringify()
-      const saveUsers = {firstName, lastName, email, phone, password, role};
-      //adds the new user 
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      //Checks for duplicates (Specifically for Email and Phone)
-      const duplicate = users.find(user => user.email === email || user.phone === phone);
-      if (duplicate) {
-        return this.showMessage("An account with this email or phone already exists", true);
-      }
-      users.push(saveUsers);
-      //Saves the new User inside of the "local storage"
-      localStorage.setItem("users", JSON.stringify(users));
+      // const saveUsers = {firstName, lastName, email, phone, password, role};
+      // //adds the new user 
+      // const users = JSON.parse(localStorage.getItem("users")) || [];
+      // //Checks for duplicates (Specifically for Email and Phone)
+      // const duplicate = users.find(user => user.email === email || user.phone === phone);
+      // if (duplicate) {
+      //   return this.showMessage("This account might already been taken", true);
+      // }
+      // users.push(saveUsers);
+      // //Saves the new User inside of the "local storage"
+      // localStorage.setItem("users", JSON.stringify(users));
 
-      this.showMessage("Registration successful!", false);
-      form.reset();
-      //Redirects to login.html
-      setTimeout(() => {
-        window.location.href = "login.html";
-      }, 1500);
+      //Save the info using DB
+      
+      try {
+        const res = await fetch("http://localhost:3000/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ firstName, lastName, email, phone, password, role }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          // Your backend returns { message: "..." }
+          return this.showMessage(data?.message || `Registration failed (${res.status})`, true);
+        }
+
+        this.showMessage("Registration successful!", false);
+        form.reset();
+        //Redirects to login.html
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1500);
+
+      } catch (err) {
+        console.error(err);
+        this.showMessage("Network or server error.", true);
+      }
     });
   }
+
   showMessage(msg, isError) {
     const messageEl = document.getElementById("formMessage");
     if (messageEl) {

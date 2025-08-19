@@ -31,7 +31,7 @@ const propertySchema = new mongoose.Schema(
     price: Number,
     ownerEmail: { type: String, required: true },
     //workspaces then attached to the owner's info
-    //workspaces: [Workspace],
+    //workspaces: [Workspace], 
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

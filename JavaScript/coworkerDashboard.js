@@ -7,7 +7,7 @@ export class coworkerDashboard {
     this.sortId = sortId;
     this.filterId = filterId;
 
-    this.properties = JSON.parse(localStorage.getItem("properties")) || [];
+    // this.properties = JSON.parse(localStorage.getItem("properties")) || [];
 
     this.init();
   }
