@@ -45,9 +45,13 @@ export class Login {
 
         //Redirect based on user role, "owner" for owner, "coworker" for coworker.
         if (data.user.role === "owner") {
-          window.location.href = "ownerdashboard.html";
+          setTimeout(() =>{
+            window.location.href = "ownerdashboard.html";
+          }, 1500);
         } else if (data.user.role === "coworker") {
-          window.location.href = "coworkerDashboard.html";
+          setTimeout(() =>{
+            window.location.href = "coworkerDashboard.html";
+          }, 1500);
         } else {
           window.location.href = "index.html";
         }

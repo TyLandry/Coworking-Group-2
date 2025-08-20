@@ -4,69 +4,129 @@ export class PropertyDetails {
   constructor() {
     //Retrieve properties and selected property ID from localStorage
     this.properties = JSON.parse(localStorage.getItem("properties")) || [];
-    this.selectedPropertyId = parseInt(localStorage.getItem("selectedPropertyId"), 10);
-    this.selectedProperty = this.properties.find(prop => prop.id === this.selectedPropertyId);
+    //NOTE: selectedPropertyId may now be a MongoDB string (_id). Keep your original parseInt,
+    this.selectedPropertyId =
+      (localStorage.getItem("selectedPropertyId") || "").trim();
+    this.selectedProperty =
+      this.properties.find(
+        prop =>
+          // original numeric localStorage logic preserved:
+          prop.id === parseInt(this.selectedPropertyId, 10) ||
+          // DB mode: match Mongo _id stored as string
+          (prop._id && prop._id === this.selectedPropertyId)
+      ) || null;
+
+    //NEW: base API url for backend
+    this.API_BASE = "http://localhost:3000/api";
+
     //Call the render function to show the property details
+    //NOTE: render now needs async data from API
     this.renderPropertyDetails();
   }
 
   //Render the selected property details along with its workspaces
-  renderPropertyDetails() {
+  async renderPropertyDetails() {
     const detailsContainer = document.getElementById("propertyDetails");
+    let property = this.selectedProperty;
 
-    if (!this.selectedProperty) {
+    //Try to fetch from API if we have an id (string) and either no local copy or we want fresh data.
+    if (this.selectedPropertyId) {
+      try {
+        const res = await fetch(`${this.API_BASE}/properties/${this.selectedPropertyId}`);
+        const fetched = await res.json();
+        if (res.ok && fetched && fetched._id) {
+          property = fetched;
+        }
+      } catch (err) {
+        console.error("Failed to fetch property from API:", err);
+      }
+    }
+
+    const details = property;
+
+    const detailsContainerExists = !!detailsContainer;
+    if (detailsContainerExists && !details) {
       detailsContainer.innerHTML = "<p>Property not found.</p>";
       return;
     }
 
-    if (this.selectedProperty.ownerEmail) {
-      localStorage.setItem("selectedOwnerEmail", this.selectedProperty.ownerEmail);
+    //Keep your ownerEmail storage behavior; in DB mode this will be present on the doc
+    if (details && details.ownerEmail) {
+      localStorage.setItem("selectedOwnerEmail", details.ownerEmail);
     }
 
-    detailsContainer.innerHTML = `
-      <div class="property-card">
-        <div class="property-info">
-          <img src="${this.selectedProperty.photo}" alt="${this.selectedProperty.name}" class="property-photo">
-          <div>
-            <h2>${this.selectedProperty.name}</h2>
-            <p><strong>Address:</strong> ${this.selectedProperty.address}</p>
-            <p><strong>Neighborhood:</strong> ${this.selectedProperty.neighborhood}</p>
-            <p><strong>Square Footage:</strong> ${this.selectedProperty.squareFootage} sq ft</p>
-            <p><strong>Parking Available:</strong> ${this.selectedProperty.parking ? "Yes" : "No"}</p>
-            <p><strong>Reachable by Public Transit:</strong> ${this.selectedProperty.publicTransit ? "Yes" : "No"}</p>
-            <div class="property-actions">
-              <button class="edit-property" data-id="${this.selectedProperty.id}">Edit Property</button>
-              <button class="delete-property" data-id="${this.selectedProperty.id}">Delete Property</button>
-              <button class="add-workspace" data-id="${this.selectedProperty.id}">Add Workspace</button>
+    //Pull workspaces from backend (DB mode). Fallback to any local workspaces if API fails.
+    let workspaces = [];
+    try {
+      if (this.selectedPropertyId) {
+        const wsRes = await fetch(`${this.API_BASE}/properties/${this.selectedPropertyId}/workspaces`);
+        const wsData = await wsRes.json();
+        if (wsRes.ok && Array.isArray(wsData)) {
+          workspaces = wsData;
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch workspaces:", err);
+    }
+    if ((!workspaces || workspaces.length === 0) && details?.workspaces?.length) {
+      //fallback to local if API empty
+      workspaces = details.workspaces;
+    }
+
+    const title = details?.name || details?.address || "Property";
+    const sqft = details?.sqft ?? details?.squareFootage ?? 0;
+    const parking = !!details?.parking;
+    const publicTransit = (details?.publicTransportation ?? details?.publicTransit) ? "Yes" : "No";
+    const photo = details?.photo || "https://via.placeholder.com/640x360?text=Property";
+    const address = details?.address || "—";
+    const neighborhood = details?.neighborhood || "—";
+
+    if (detailsContainerExists) {
+      detailsContainer.innerHTML = `
+        <div class="property-card">
+          <div class="property-info">
+            <img src="${photo}" alt="${title}" class="property-photo">
+            <div>
+              <h2>${title}</h2>
+              <p><strong>Address:</strong> ${address}</p>
+              <p><strong>Neighborhood:</strong> ${neighborhood}</p>
+              <p><strong>Square Footage:</strong> ${sqft} sq ft</p>
+              <p><strong>Parking Available:</strong> ${parking ? "Yes" : "No"}</p>
+              <p><strong>Reachable by Public Transit:</strong> ${publicTransit}</p>
+              <div class="property-actions">
+                <button class="edit-property" data-id="${details?._id || details?.id}">Edit Property</button>
+                <button class="delete-property" data-id="${details?._id || details?.id}">Delete Property</button>
+                <button class="add-workspace" data-id="${details?._id || details?.id}">Add Workspace</button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="workspace-section">
-          <h3>Workspaces</h3>
-          ${this.selectedProperty.workspaces && this.selectedProperty.workspaces.length > 0 
-            ? this.selectedProperty.workspaces.map(workspace => `
-              <div class="workspace-card-details">    
-                <h4>${workspace.name}</h4>
-                <p><strong>Type:</strong> ${workspace.type}</p>
-                <p><strong>Seats:</strong> ${workspace.seats}</p>
-                <p><strong>Smoking Allowed:</strong> ${workspace.smokingAllowed ? "Yes" : "No"}</p>
-                <p><strong>Availability:</strong> ${workspace.availability}</p>
-                <p><strong>Lease Option:</strong> ${workspace.leaseOption}</p>
-                <p><strong>Price:</strong> $${workspace.price}</p>
-                <div class="workspace-actions">
-                  <button class="edit-workspace" data-property-id="${this.selectedProperty.id}" data-workspace-id="${workspace.id}">Edit Workspace</button>
-                  <button class="delete-workspace" data-property-id="${this.selectedProperty.id}" data-workspace-id="${workspace.id}">Delete Workspace</button>
+          <div class="workspace-section">
+            <h3>Workspaces</h3>
+            ${
+              workspaces && workspaces.length > 0 
+              ? workspaces.map(ws => `
+                <div class="workspace-card-details">    
+                  <h4>${ws.name || "Workspace"}</h4>
+                  <p><strong>Type:</strong> ${ws.type || "—"}</p>
+                  <p><strong>Seats:</strong> ${ws.seats ?? "—"}</p>
+                  <p><strong>Smoking Allowed:</strong> ${ws.smokingAllowed ? "Yes" : "No"}</p>
+                  <p><strong>Availability:</strong> ${String(ws.availability ?? "—")}</p>
+                  <p><strong>Lease Option:</strong> ${ws.leaseOption || "—"}</p>
+                  <p><strong>Price:</strong> $${ws.price ?? "—"}</p>
+                  <div class="workspace-actions">
+                    <button class="edit-workspace" data-property-id="${details?._id || details?.id}" data-workspace-id="${ws._id || ws.id}">Edit Workspace</button>
+                    <button class="delete-workspace" data-property-id="${details?._id || details?.id}" data-workspace-id="${ws._id || ws.id}">Delete Workspace</button>
+                  </div>
                 </div>
-              </div>
-            `).join("")
-            : "<p>No workspaces added yet.</p>"
-          }
+              `).join("")
+              : "<p>No workspaces added yet.</p>"
+            }
+          </div>
         </div>
-      </div>
-    `;
- // Above Changed name from workspace-card to workspace-card-details inorder to avoid styling overlap
+      `;
+    }
+ //Above Changed name from workspace-card to workspace-card-details inorder to avoid styling overlap
 
- 
     //Add event listeners for property actions
     document.querySelector('.edit-property').addEventListener('click', this.editProperty.bind(this));
     document.querySelector('.delete-property').addEventListener('click', this.deleteProperty.bind(this));
@@ -92,11 +152,37 @@ export class PropertyDetails {
   }
 
   //Delete property handler
-  deleteProperty(e) {
+  async deleteProperty(e) {
     const propertyId = e.target.getAttribute('data-id');
     if (confirm("Are you sure you want to delete this property?")) {
       //Forcefully convert the value to int in order to prevent mismatch
-      const updatedProperties = this.properties.filter(prop => prop.id !== parseInt(propertyId, 10));
+      //(DB mode uses string _id; we’ll try API first, then fall back to localStorage delete)
+      const token = sessionStorage.getItem("token");
+
+      try {
+        const res = await fetch(`${this.API_BASE}/properties/${propertyId}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert("Property deleted successfully!");
+          window.location.href = "./ownerdashboard.html";
+          return;
+        } else {
+          //If API deletion fails, continue to fallback local removal below
+          console.warn("API delete failed:", data?.message || res.status);
+        }
+      } catch (err) {
+        console.error("API delete error:", err);
+      }
+
+      //Fallback to old localStorage delete (preserved behavior)
+      const updatedProperties = this.properties.filter(prop =>
+        prop.id !== parseInt(propertyId, 10)
+      );
       localStorage.setItem("properties", JSON.stringify(updatedProperties));
       alert("Property deleted successfully!");
       window.location.href = "./ownerdashboard.html";
@@ -119,10 +205,31 @@ export class PropertyDetails {
     window.location.href = "./editworkspace.html";
   }
  //Delete workspace handler
-  deleteWorkspace(e) {
+  async deleteWorkspace(e) {
     const propertyId = e.target.getAttribute('data-property-id');
     const workspaceId = e.target.getAttribute('data-workspace-id');
     if (confirm("Are you sure you want to delete this workspace?")) {
+      //Try backend deletion first (DB mode)
+      const token = sessionStorage.getItem("token");
+      try {
+        const res = await fetch(`${this.API_BASE}/workspaces/${workspaceId}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert("Workspace deleted successfully!");
+          //Re-render to reflect changes
+          this.renderPropertyDetails();
+          return;
+        } else {
+          console.warn("API workspace delete failed:", data?.message || res.status);
+        }
+      } catch (err) {
+        console.error("API workspace delete error:", err);
+      }
+
+      //original localStorage fallback (preserved)
       const property = this.properties.find(prop => prop.id === parseInt(propertyId));
       if (property) {
         property.workspaces = property.workspaces.filter(workspace => workspace.id !== parseInt(workspaceId));
@@ -133,6 +240,7 @@ export class PropertyDetails {
     }
   }
 }
+
 
 // // Retrieve properties from localStorage
 // const properties = JSON.parse(localStorage.getItem("properties")) || [];

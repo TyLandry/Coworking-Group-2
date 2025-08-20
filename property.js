@@ -29,6 +29,7 @@ const propertySchema = new mongoose.Schema(
     availability: Boolean,
     term: { type: String, enum: ["day", "week", "month"] },
     price: Number,
+    photo: String, 
     ownerEmail: { type: String, required: true },
     //workspaces then attached to the owner's info
     //workspaces: [Workspace], 

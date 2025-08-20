@@ -1,25 +1,33 @@
 //Created AddProperty class and encapsulate sensitive variables and functions 
 //For better security
+//Created AddProperty class and encapsulate sensitive variables and functions 
+//For better security
 export class AddProperty {
   constructor(formId) {
     this.form = document.getElementById(formId);
+    // NOTE: properties in localStorage are no longer used for DB flow; keeping this line to preserve your comment/history
     this.properties = JSON.parse(localStorage.getItem("properties")) || [];
     this.init();
   }
 
   init() {
     //Attach event listener to the form
+    // NOTE: make the handler async so we can use await
     this.form.onsubmit = this.handleSubmit.bind(this);
   }
 
   //Handle form submission for adding a new property
-  handleSubmit(e) {
+  // NOTE: async because we await fetch
+  async handleSubmit(e) {
     e.preventDefault();
-  
-    const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    
+    const token = sessionStorage.getItem("token");
+    const currentUser = JSON.parse(sessionStorage.getItem("user"));
+    // const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
     //Check if currentUser exists and has an email
-    if (!currentUser || !currentUser.email) {
+    // (Also ensure role is owner, since backend requires it via ensureOwner)
+    if (!currentUser || !currentUser.email || currentUser.role !== "owner") {
       alert("You must be logged in as an owner to add a property.");
       return;
     }
@@ -35,36 +43,54 @@ export class AddProperty {
 
     //Create a new property object
     const newProperty = {
-      id: Date.now(),
+      // id: Date.now(),
       name: name,
       address: address,
       neighborhood: neighborhood,
-      squareFootage: squareFootage,
-      parking: parking,
-      publicTransit: publicTransit,
-      photo: photo,
-      ownerEmail: currentUser.email.trim().toLowerCase(),
-      workspaces: [] 
+      sqft: Number.isFinite(squareFootage) ? squareFootage : 0,
+      parking: !!parking,
+      publicTransportation: !!publicTransit,
+      photo: photo
+      // ownerEmail: currentUser.email.trim().toLowerCase(),
+      // workspaces: [] 
     };
 
-    // Add the new property to the properties array
-    this.properties.push(newProperty);
+    // Add the new property to the properties array (deprecated with DB; kept for history)
+    // this.properties.push(newProperty);
 
-    // Save the updated properties array back to localStorage
-    localStorage.setItem("properties", JSON.stringify(this.properties));
+    // // Save the updated properties array back to localStorage (deprecated with DB; kept for history)
+    // localStorage.setItem("properties", JSON.stringify(this.properties));
 
-    //Show a success alert
-    alert("Property added successfully!");
+    try {
+      const res = await fetch("http://localhost:3000/api/properties", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` // attach JWT for authentication
+        },
+        body: JSON.stringify(newProperty),
+      });
 
-    //Redirect to the Owner Dashboard
-    window.location.href = "./ownerdashboard.html";
+      const data = await res.json();
+
+      if (!res.ok){
+        // use backticks for template string
+        alert(data?.message || `Failed to add property (status ${res.status})`);
+        return;
+      }
+
+      //Show a success alert
+      alert("Property added successfully!");
+
+      //Redirect to the Owner Dashboard
+      window.location.href = "./ownerdashboard.html";
+
+    } catch (err) {
+      console.error("Error adding property:", err);
+      alert("Network or server error.");
+    }
   }
 }
-
-
-
-
-
 
 
 
