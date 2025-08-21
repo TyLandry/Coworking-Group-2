@@ -9,22 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const editingPropertyId = parseInt(localStorage.getItem("editingWorkspacePropertyId"), 10);
   const editingWorkspaceId = parseInt(localStorage.getItem("editingWorkspaceId"), 10);
 
-
-  // Function to populate form with workspace details
-  async function populateWorkspaceForm() {
-    try {
-      const res = await fetch (`http://localhost:3000/api/workspaces/${editingWorkspaceId}`);
-      const data = await res.json();
-      if (res.ok) {
-        editingWorkspace = data;
-      } else {
-        console.warn("Backend fetch failed:", data?.message);
-      }
-    } catch (err) {
-      console.error("Failed to fetch workspace:", err);
-    }
-  }
-
   // Get all properties from localStorage
   const properties = JSON.parse(localStorage.getItem("properties")) || [];
 
@@ -44,6 +28,26 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
+  let editingWorkspace = property.workspaces[workspaceIndex];
+
+  
+  // Function to populate form with workspace details
+  async function populateWorkspaceForm() {
+    try {
+      const res = await fetch (`http://localhost:3000/api/workspaces/${editingWorkspaceId}`);
+      const data = await res.json();
+      if (res.ok) {
+        editingWorkspace = data;
+      } else {
+        console.warn("Backend fetch failed:", data?.message);
+      }
+    } catch (err) {
+      console.error("Failed to fetch workspace:", err);
+    }
+
+      fillWorkspaceForm(editingWorkspace);
+  }
+
   // Populate form fields (call this on page load)
   function fillWorkspaceForm(workspace) {
     document.getElementById("workspaceName").value = workspace.name || "";
@@ -55,14 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("workspacePrice").value = workspace.price || 0;
   }
   // Call this on page load
-  fillWorkspaceForm(property.workspaces[workspaceIndex]);
+  populateWorkspaceForm();
 
   // Handle form submission
   document.getElementById("editWorkspaceForm").addEventListener("submit", async function (event) {
     event.preventDefault();
-
-  let editingWorkspace = property.workspaces[workspaceIndex];
-
 
     // Update workspace details
     const updatedWorkspace = {
