@@ -9,6 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const editingPropertyId = parseInt(localStorage.getItem("editingWorkspacePropertyId"), 10);
   const editingWorkspaceId = parseInt(localStorage.getItem("editingWorkspaceId"), 10);
 
+
+  // Function to populate form with workspace details
+  async function populateWorkspaceForm() {
+    try {
+      const res = await fetch (`http://localhost:3000/api/workspaces/${editingWorkspaceId}`);
+      const data = await res.json();
+      if (res.ok) {
+        editingWorkspace = data;
+      } else {
+        console.warn("Backend fetch failed:", data?.message);
+      }
+    } catch (err) {
+      console.error("Failed to fetch workspace:", err);
+    }
+  }
+
   // Get all properties from localStorage
   const properties = JSON.parse(localStorage.getItem("properties")) || [];
 
@@ -29,25 +45,28 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Populate form fields (call this on page load)
-  function populateWorkspaceForm(workspace) {
-    document.getElementById("workspaceName").value = workspace.name;
-    document.getElementById("workspaceType").value = workspace.type;
-    document.getElementById("workspaceSeats").value = workspace.seats;
-    document.getElementById("workspaceSmoking").checked = !!workspace.smokingAllowed;
-    document.getElementById("workspaceAvailability").value = workspace.availability;
-    document.getElementById("workspaceLease").value = workspace.leaseOption;
-    document.getElementById("workspacePrice").value = workspace.price;
+  function fillWorkspaceForm(workspace) {
+    document.getElementById("workspaceName").value = workspace.name || "";
+    document.getElementById("workspaceType").value = workspace.type || "";
+    document.getElementById("workspaceSeats").value = workspace.seats || 0;
+    document.getElementById("workspaceSmoking").checked = !!workspace.smoking;
+    document.getElementById("workspaceAvailability").value = workspace.availability || "";
+    document.getElementById("workspaceLease").value = workspace.lease || "";
+    document.getElementById("workspacePrice").value = workspace.price || 0;
   }
   // Call this on page load
-  populateWorkspaceForm(property.workspaces[workspaceIndex]);
+  fillWorkspaceForm(property.workspaces[workspaceIndex]);
 
   // Handle form submission
-  document.getElementById("editWorkspaceForm").addEventListener("submit", function (event) {
+  document.getElementById("editWorkspaceForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
+  let editingWorkspace = property.workspaces[workspaceIndex];
+
+
     // Update workspace details
-    property.workspaces[workspaceIndex] = {
-      ...property.workspaces[workspaceIndex],
+    const updatedWorkspace = {
+      ...editingWorkspace,
       name: document.getElementById("workspaceName").value,
       type: document.getElementById("workspaceType").value,
       seats: parseInt(document.getElementById("workspaceSeats").value, 10),
@@ -56,6 +75,30 @@ document.addEventListener("DOMContentLoaded", function () {
       lease: document.getElementById("workspaceLease").value,
       price: parseFloat(document.getElementById("workspacePrice").value)
     };
+
+    //Try API update with JWT
+     const token = sessionStorage.getItem("token");
+    try {
+      const res = await fetch(`http://localhost:3000/api/workspaces/${editingWorkspaceId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedWorkspace)
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("Workspace updated successfully!");
+        localStorage.setItem("selectedPropertyId", editingPropertyId);
+        window.location.href = "./propertydetails.html";
+        return;
+      } else {
+        console.warn("API update failed:", data?.message);
+      }
+    } catch (err) {
+      console.error("API update error:", err);
+    }
 
     // Save full updated properties array back to localStorage
     localStorage.setItem("properties", JSON.stringify(properties));
