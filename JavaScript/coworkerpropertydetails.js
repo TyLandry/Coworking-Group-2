@@ -1,8 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  //parsing selectedPropertyId incorrectly IDs from mongodb are strings parseInt will return NaN 
+  // so commented this  line
+  // const selectedPropertyId = parseInt(localStorage.getItem("selectedPropertyId"), 10);
   // Get selected property ID from localStorage
-  const selectedPropertyId = parseInt(localStorage.getItem("selectedPropertyId"), 10);
-  const properties = JSON.parse(localStorage.getItem("properties")) || [];
-  const property = properties.find(p => p.id === selectedPropertyId);
+  const selectedPropertyId =localStorage.getItem("selectedPropertyId");
+  if (!selectedPropertyId) {
+    alert("No property selected.");
+    return;
+  }
+
+  try {
+     const token = sessionStorage.getItem("token"); // if your backend requires JWT
+    // Fetch property details from backend
+    const res = await fetch(`http://localhost:3000/api/properties/${selectedPropertyId}`,{
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  });
+
+    if (!res.ok) throw new Error("Property not found.");
+    const property = await res.json();
 
   // Reference to property card div
   const detailsDiv = document.querySelector("#propertyDetails .property-card");
@@ -22,16 +40,29 @@ document.addEventListener("DOMContentLoaded", function () {
     <p><strong>Reachable by Public Transit:</strong> ${property.publicTransit ? "Yes" : "No"}</p>
   `;
 
-  // Render workspaces (ONLY Select Workspace button)
+  // Fetch workspace for this property
+  const wsres = await fetch(`http://localhost:3000/api/properties/${selectedPropertyId}/workspaces`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  });
+
+  if(!wsres.ok) throw new Error("Failed to fetch workspaces");
+  const workspaces = await wsres.json();
+
+
+  // Render workspaces 
   const workspacesDiv = document.getElementById("workspaces");
   workspacesDiv.innerHTML = "<h3>Workspaces</h3>";
-
-  if (!property.workspaces || property.workspaces.length === 0) {
+  
+// property.workspaces replaced with the backend workspaces array
+  if (!workspaces || workspaces.length === 0) {
     workspacesDiv.innerHTML += "<p>No workspaces for this property.</p>";
     return;
   }
 
-  property.workspaces.forEach(ws => {
+   workspaces.forEach(ws => {
     const workspaceCard = document.createElement("div");
     workspaceCard.className = "workspace-card";
     workspaceCard.innerHTML = `
@@ -42,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <p><strong>Availability:</strong> ${ws.availability}</p>
       <p><strong>Lease Option:</strong> ${ws.leaseOption}</p>
       <p><strong>Price:</strong> $${ws.price}</p>
-      <button class="select-workspace-btn" data-wsid="${ws.id}">Select Workspace</button>
+      <button class="select-workspace-btn" data-wsid="${ws._id}">Select Workspace</button>
     `;
     workspacesDiv.appendChild(workspaceCard);
   });
@@ -55,4 +86,9 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "workplacedetails.html";
     });
   });
+
+}catch(err){
+  console.error(err);
+  alert("Error loading property details. Please try again later.");
+}
 });
