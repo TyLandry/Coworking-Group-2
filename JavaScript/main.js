@@ -116,6 +116,15 @@ if (path.includes("propertydetails.html")){
   console.error("Property details failed to load:", err.message);
 }
 
+import { WorkplaceDetails } from "./workplacedetails.js";
+try {
+  const path = window.location.pathname.toLowerCase();
+if (path.includes("workplacedetails.html")){
+  const workplaceDetails = new WorkplaceDetails();
+}
+} catch (err) {
+  console.error("Workplace details failed to load:", err.message);
+}
 
 
 //Code checks what page is currently loaded and runs the login handler if it's the login page
