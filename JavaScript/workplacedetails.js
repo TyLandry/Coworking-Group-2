@@ -1,4 +1,4 @@
-export class WorkspaceDetails {
+export class WorkplaceDetails {
   constructor() {
     // IDs from localStorage
     this.selectedPropertyId = (localStorage.getItem("selectedPropertyId") || "").trim();
