@@ -86,26 +86,33 @@ function renderProperties(props) {
   gallery.innerHTML = "";
 
   props.forEach(prop => {
+    // Backend sends `sqft` and `publicTransportation`
+    // Old localStorage version used `squareFootage` and `publicTransit`
+    const title = prop.name || prop.address || "—"; 
+    const sqft = prop.sqft ?? prop.squareFootage ?? "—"; 
+    const reachablePublic = prop.publicTransportation ?? prop.publicTransit ?? false; 
+    const photo = prop.photo || "https://via.placeholder.com/400x240?text=Property";
+
     const card = document.createElement("div");
     card.className = "property-card";
     card.innerHTML = `
-      <img src="${prop.photo}" alt="${prop.name}" />
-      <h3>${prop.name}</h3>
-      <p><strong>Address:</strong> ${prop.address}</p>
-      <p><strong>Neighborhood:</strong> ${prop.neighborhood}</p>
-      <p><strong>Square Footage:</strong> ${prop.squareFootage} sq ft</p>
+      <img src="${photo}" alt="${title}" />
+      <h3>${title}</h3>
+      <p><strong>Address:</strong> ${prop.address || "—"}</p>
+      <p><strong>Neighborhood:</strong> ${prop.neighborhood || "—"}</p>
+      <p><strong>Square Footage:</strong> ${sqft} sq ft</p>
       <div class="checkbox-group">
         <label>
           <input type="checkbox" disabled ${prop.parking ? "checked" : ""} />
           Parking Available
         </label>
         <label>
-          <input type="checkbox" disabled ${prop.publicTransit ? "checked" : ""} />
+          <input type="checkbox" disabled ${reachablePublic ? "checked" : ""} />
           Reachable by Public Transit
         </label>
       </div>
       <div class="property-actions">
-        <button class="select-btn blue" data-id="${prop._id}">Select</button>
+        <button class="select-btn blue" data-id="${prop._id || prop.id}">Select</button>
       </div>
     `;
     gallery.appendChild(card);
@@ -120,6 +127,7 @@ function renderProperties(props) {
     });
   });
 }
+
 // this function filters properties based on search input and selected filters and renders the filtered properties.
 // the if statement checks if the search input is empty.
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split

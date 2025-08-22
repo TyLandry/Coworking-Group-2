@@ -26,17 +26,35 @@ export class WorkplaceDetails {
   }
 
   async renderWorkspaceDetails() {
-    const detailsContainer = document.querySelector(".workspace-info");
+    const detailsContainer =
+      document.querySelector(".workspace-info") ||
+      document.getElementById("workspaceDetails") ||
+      document.querySelector("#propertyDetails .workspace-info");
+
+    if (!detailsContainer) return;
 
     let workspace = this.workspace;
 
     // Try backend fetch if we have an ID
-    if (this.selectedWorkspaceId) {
+    if (this.selectedPropertyId) {
       try {
-        const res = await fetch(`${this.API_BASE}/workspaces/${this.selectedWorkspaceId}`);
-        const data = await res.json();
-        if (res.ok && data && (data._id || data.id)) {
-          workspace = data;
+        const token = sessionStorage.getItem("token"); // if your backend requires JWT
+
+        // fetch the property (so we can grab ownerEmail for Contact Owner)
+        const pRes = await fetch(`${this.API_BASE}/properties/${this.selectedPropertyId}`, {
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token || ""}` }
+        });
+        if (pRes.ok) this.property = await pRes.json();
+
+        // fetch workspaces under the property, then find the exact workspace by id
+        const wsRes = await fetch(`${this.API_BASE}/properties/${this.selectedPropertyId}/workspaces`, {
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token || ""}` }
+        });
+        if (wsRes.ok) {
+          const list = await wsRes.json();
+          workspace =
+            list.find(w => (w._id === this.selectedWorkspaceId) || (String(w.id) === this.selectedWorkspaceId)) ||
+            workspace;
         }
       } catch (err) {
         console.error("Failed to fetch workspace:", err);
@@ -48,20 +66,23 @@ export class WorkplaceDetails {
       return;
     }
 
-    // Fill workspace details
+    // Fill workspace details (add fallbacks to support older docs)
     const title = workspace.name || "Workspace";
-    const price = workspace.price ?? "—";
-    const type = workspace.type || "—";
-    const seats = workspace.seats ?? "—";
-    const smoking = workspace.smokingAllowed ? "Yes" : "No";
-    const availability = workspace.availability ?? "—";
-    const lease = workspace.leaseOption || "—";
+    const rawPrice = (typeof workspace.price === "number") ? workspace.price : Number(workspace.price);
+    const price = Number.isFinite(rawPrice) ? rawPrice.toFixed(2) : "—";
+    const type = workspace.type || workspace.workspaceType || "—";
+    const seats = (workspace.seats ?? workspace.numSeats ?? "—");
+    const smokingBool = (workspace.smokingAllowed ?? workspace.smoking ?? false);
+    const smoking = smokingBool ? "Yes" : "No";
+    const availVal = workspace.availability ?? workspace.availableFrom ?? "";
+    const availability = availVal ? String(availVal).slice(0,10) : "—";
+    const lease = workspace.leaseOption || workspace.lease || workspace.term || "—";
     const description = workspace.description || "";
     const photo = workspace.photo || "https://via.placeholder.com/640x360?text=Workspace";
 
     detailsContainer.innerHTML = `
       <h2 id="workspace-title">${title}</h2>
-      <img id="workspace-image" src="${photo}" alt="${title}">
+      </br>
       <p><strong>Price:</strong> $<span id="workspace-price">${price}</span></p>
       <p><strong>Type:</strong> <span id="workspace-type">${type}</span></p>
       <p><strong>Seats:</strong> <span id="workspace-seats">${seats}</span></p>

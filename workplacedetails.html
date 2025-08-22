@@ -1,49 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workspace Details</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="/JavaScript/main.js" defer></script>
-  <script src="/JavaScript/workplacedetails.js" defer></script>
-</head>
-<body>
-  <div id="navbar-container"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workspace Details</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="/JavaScript/main.js" defer></script>
+    <!-- <script src="/JavaScript/workplacedetails.js" defer></script> -->
+  </head>
+  <body>
+    <div id="navbar-container"></div>
 
-  <main class="workspace-details">
-    <h1>RENT A WORKSPACE</h1>
+    <main class="workspace-details">
+      <h1>RENT A WORKSPACE</h1>
 
-    <div class="workspace-card">
-      <img id="workspace-image" src="images/workplace1.jpg" alt="Workspace Image"/>
+      <div class="workspace-card">
+        <img
+          id="workspace-image"
+          src="images/workplace1.jpg"
+          alt="Workspace Image"
+        />
 
-      <div class="workspace-info">
-        <h3 class="workspace-title" id="workspace-title"></h3>
-        <p class="price" id="workspace-price"></p>
-        <div class="workspace-attributes">
-          <div><strong>Type:</strong> <span id="workspace-type"></span></div>
-          <div><strong>Seats:</strong> <span id="workspace-seats"></span></div>
-          <div><strong>Smoking Allowed:</strong> <span id="workspace-smoking"></span></div>
-          <div><strong>Availability:</strong> <span id="workspace-availability"></span></div>
-          <div><strong>Lease Option:</strong> <span id="workspace-lease"></span></div>
-          <div><strong>Description:</strong> <span id="workspace-description"></span></div>
-        </div>
-        <div class="workspace-actions">
-          <button class="rent-btn">Rent Workspace</button>
-          <button class="contact-btn">Contact Owner</button>
+        <div class="workspace-info">
+          <h3 class="workspace-title" id="workspace-title"></h3>
+          <p class="price" id="workspace-price"></p>
+          <div class="workspace-attributes">
+            <div><strong>Type:</strong> <span id="workspace-type"></span></div>
+            <div>
+              <strong>Seats:</strong> <span id="workspace-seats"></span>
+            </div>
+            <div>
+              <strong>Smoking Allowed:</strong>
+              <span id="workspace-smoking"></span>
+            </div>
+            <div>
+              <strong>Availability:</strong>
+              <span id="workspace-availability"></span>
+            </div>
+            <div>
+              <strong>Lease Option:</strong> <span id="workspace-lease"></span>
+            </div>
+            <div>
+              <strong>Description:</strong>
+              <span id="workspace-description"></span>
+            </div>
+          </div>
+          <div class="workspace-actions">
+            <button class="rent-btn">Rent Workspace</button>
+            <button class="contact-btn">Contact Owner</button>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-<!--Footer-->
-  <footer>
-        <img
-        src="images/coworkingNoBckg.png" alt="Coworking Logo" class="footer-logo"/>
-        ©2024 Coworking Group 2 Project. All rights reserved |
-      <a href="#" style="color:white;">Privacy Policy</a> |
-      <a href="#" style="color:white;">Terms & Conditions</a>
-  </footer>
-
-</body>
+    <!--Footer-->
+    <footer>
+      <img
+        src="images/coworkingNoBckg.png"
+        alt="Coworking Logo"
+        class="footer-logo"
+      />
+      ©2024 Coworking Group 2 Project. All rights reserved |
+      <a href="#" style="color: white">Privacy Policy</a> |
+      <a href="#" style="color: white">Terms & Conditions</a>
+    </footer>
+  </body>
 </html>

@@ -261,6 +261,17 @@ router.delete("/workspaces/:workspaceId", authMiddleware, ensureOwner, async (re
     }
 });
 
+//For contactinfo
+router.get("/owners/:email", async (req, res) => {
+  try {
+    const email = decodeURIComponent(req.params.email).toLowerCase();
+    const user = await User.findOne({ email }).select("firstName lastName phone email role");
+    if (!user) return res.status(404).json({ message: "Owner not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // Export router so it can be used in server.js
 export default router;

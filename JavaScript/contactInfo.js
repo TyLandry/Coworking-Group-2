@@ -13,7 +13,7 @@ OpenAI. (2025). ChatGPT (June 2025 version). https://chat.openai.com/*/
     // const owner = users.find((user) => user.email === ownerEmail);//---I am not sure about this until we get Contact
 
     //Find the workspace's property
-const selectedWorkspaceId = parseInt(localStorage.getItem("selectedWorkspaceId"), 10);
+const selectedWorkspaceId = (localStorage.getItem("selectedWorkspaceId") || "").trim();
 //To display the name of the workspace from localstorage
   const workspaceName = localStorage.getItem("workspaceName");
 const properties = JSON.parse(localStorage.getItem("properties")) || [];
@@ -29,28 +29,43 @@ let property = null;
 
 //Loop to find its property and the ID of the workspace 
 for (const p of properties) {
-  const workspace = p.workspaces?.find(w => w.id === selectedWorkspaceId);
+  const workspace = p.workspaces?.find(w => (String(w.id) === selectedWorkspaceId) || (w._id === selectedWorkspaceId));
   if (workspace) {
     property  = p;
     break;
   }
 }
 
-if (property && property.ownerEmail) {
-  owner = users.find(user => user.email == property.ownerEmail);
-}
+const ownerEmail = (localStorage.getItem("selectedOwnerEmail") || "").trim() || (property?.ownerEmail || "");
+
+(async () => {
+  if (property && ownerEmail) {
+    owner = users.find(user => user.email == ownerEmail) || null;
+  }
+
+  if (!owner && ownerEmail) {
+    try {
+      const res = await fetch(`http://localhost:3000/api/owners/${encodeURIComponent(ownerEmail)}`);
+      const data = await res.json();
+      if (res.ok && data) {
+        owner = { firstName: data.firstName || "", lastName: data.lastName || "", phone: data.phone || "", email: data.email || ownerEmail };
+      }
+    } catch (e) {
+      console.error("Failed to fetch owner info:", e);
+    }
+  }
 
     if(owner){
         document.getElementById("ownerName").textContent = `${owner.firstName} ${owner.lastName}`;
         document.getElementById("ownerDescription").textContent = `Owner`;
-        document.getElementById("ownerPhone").textContent = `Phone ${owner.phone}`;
-        document.getElementById("ownerEmail").textContent = `Email ${owner.email}`;
+        document.getElementById("ownerPhone").textContent = `Phone: ${owner.phone || "-"}`;
+        document.getElementById("ownerEmail").textContent = `Email: ${owner.email}`;
     }else {
         console.error("Owner not found");
         document.getElementById("ownerName").textContent = "Unknown Owner";
         document.getElementById("ownerDescription").textContent = "No info found.";
         document.getElementById("ownerPhone").textContent = "Phone: -";
-        document.getElementById("ownerEmail").textContent = "Email: -";
+        document.getElementById("ownerEmail").textContent = `Email: ${ownerEmail || "-"}`;
     }
 
     if (workspaceName) {
@@ -60,6 +75,7 @@ if (property && property.ownerEmail) {
     }
   
   }
+})();
 
 //The btn here once clicked will popup a window to write an email to the owner.
 
@@ -87,7 +103,7 @@ if (property && property.ownerEmail) {
       const message = document.getElementById("popupMessage").value; //gets the user's message value
 
       if (email && message) { //then finally if the email and message are typed then it will display message sent
-        alert(`Your message has been sent to ${ownerEmail}!`);
+        alert(`Your message has been sent to ${ownerEmail || "the owner"}!`);
         modal.classList.add("hidden");
 
       } else {//otherwise will ask the coworker to fill both info before send email.
