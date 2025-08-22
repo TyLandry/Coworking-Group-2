@@ -10,7 +10,7 @@ export class WorkplaceDetails {
     // Find property/workspace locally first
     this.property =
       this.properties.find(
-        p => p.id === parseInt(this.selectedPropertyId, 10) ||
+        p => p.id === parseInt(this.selectedPropertyId, 0) ||
              (p._id && p._id === this.selectedPropertyId)
       ) || null;
 
@@ -101,5 +101,5 @@ export class WorkplaceDetails {
 
 // Boot it up on the DOM load
 document.addEventListener("DOMContentLoaded", () => {
-  new WorkspaceDetails();
+  new WorkplaceDetails();
 })
